@@ -13,7 +13,7 @@ export default function ProjectDetail() {
     // Scroll to top on load
     window.scrollTo(0, 0)
     
-    fetch(`http://localhost:3000/api/projects/${slug}`)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/projects/${slug}`)
       .then(res => {
         if (!res.ok) throw new Error('Project not found')
         return res.json()

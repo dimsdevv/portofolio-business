@@ -1,8 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const { PrismaClient } = require('@prisma/client');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 const app = express();
 const prisma = new PrismaClient();
@@ -12,16 +15,21 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 app.use(cors());
 app.use(express.json());
 
-// Serve uploaded images statically
+// Serve uploaded images statically (For backward compatibility if needed)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Configure Multer for image uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname.replace(/\s+/g, '-'));
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'origindevv_portfolio',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4']
   }
 });
 const upload = multer({ storage: storage });
@@ -86,9 +94,8 @@ app.post('/api/upload', requireAuth, upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No image provided' });
   }
-  // Return the public URL for the uploaded image
-  const imageUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
-  res.json({ url: imageUrl });
+  // Return the public URL for the uploaded image from Cloudinary
+  res.json({ url: req.file.path });
 });
 
 // Create project

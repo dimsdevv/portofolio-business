@@ -10,7 +10,7 @@ export default function WorkSection() {
 
   // Fetch projects from API
   useEffect(() => {
-    fetch('http://localhost:3000/api/projects')
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/projects`)
       .then(res => res.json())
       .then(data => setProjects(data))
       .catch(err => console.error('Failed to fetch projects:', err))
