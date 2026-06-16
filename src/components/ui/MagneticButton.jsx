@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
-export default function MagneticButton({ children, className, onClick, href, to }) {
+export default function MagneticButton({ children, className, onClick, href, to, ...rest }) {
   const ref = useRef(null)
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
@@ -22,14 +22,14 @@ export default function MagneticButton({ children, className, onClick, href, to 
   const { x, y } = position
 
   let Element = 'button'
-  let props = { onClick, className }
+  let props = { onClick, className, ...rest }
 
   if (href) {
     Element = 'a'
-    props = { href, className }
+    props = { href, className, ...rest }
   } else if (to) {
     Element = Link
-    props = { to, className }
+    props = { to, className, ...rest }
   }
 
   return (

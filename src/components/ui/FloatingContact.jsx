@@ -14,7 +14,9 @@ export default function FloatingContact() {
       {/* Brutalist-lite floating button */}
       <MagneticButton 
         href={whatsappUrl} 
-        className="flex items-center justify-center w-16 h-16 bg-[var(--color-signal)] text-[var(--color-ink)] shadow-[8px_8px_0_0_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200 border-2 border-[var(--color-ink)]"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center w-16 h-16 bg-[var(--color-signal)] text-[var(--color-ink)] shadow-[8px_8px_0_0_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200 border-2 border-[var(--color-ink)] rounded-full md:rounded-none"
       >
         <MessageSquare size={28} strokeWidth={1.5} />
       </MagneticButton>
