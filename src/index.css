@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0E0E0E;
+  --color-ink-muted: #1A1A1A;
+  --color-ink-subtle: #2B2B2B;
+
+  --color-paper: #F5F4F0;
+  --color-paper-warm: #EDEBE3;
+  --color-paper-off: #E3E1D8;
+
+  --color-signal: #C8F53A;
+  --color-signal-dim: #A8D020;
+  --color-chalk: #F5F4F0;
+  --color-fog: #7A7A72;
+  --color-border-ink: #2B2B2B;
+  --color-border-paper: #CFCDC5;
+
+  --font-display: "Clash Display", sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --font-sans: "DM Sans", sans-serif;
+
+  --text-display: clamp(3rem, 8vw, 7rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.03em;
+
+  --text-heading: clamp(2rem, 4vw, 3.5rem);
+  --text-heading--line-height: 1.1;
+  --text-heading--letter-spacing: -0.02em;
+
+  --text-label: 0.75rem;
+  --text-label--line-height: 1;
+  --text-label--letter-spacing: 0.12em;
+
+  --animate-marquee: marquee 25s linear infinite;
+  --animate-pulse-slow: pulse 3s ease-in-out infinite;
+
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Selection styling */
+  ::selection {
+    background-color: var(--color-signal);
+    color: var(--color-ink);
+  }
+}
