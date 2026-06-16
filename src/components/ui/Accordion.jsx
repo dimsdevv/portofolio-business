@@ -1,15 +1,20 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function Accordion({ id, number, title, description, price }) {
+export default function Accordion({ id, number, title, description, price, theme = 'light' }) {
   const [isOpen, setIsOpen] = useState(false)
 
+  const isDark = theme === 'dark'
+  const borderColor = isDark ? 'border-[var(--color-border-ink)]' : 'border-[var(--color-border-paper)]'
+  const textColor = isDark ? 'text-[var(--color-paper)]' : 'text-[var(--color-ink)]'
+  const hoverTextColor = isDark ? 'group-hover:text-[var(--color-signal)]' : 'group-hover:text-[var(--color-signal-dim)]'
+
   return (
-    <div className="border-t border-[var(--color-border-paper)] py-6 group cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+    <div className={`border-t ${borderColor} py-6 group cursor-pointer`} onClick={() => setIsOpen(!isOpen)}>
       <div className="flex items-start md:items-center justify-between gap-4">
         <div className="flex items-start md:items-center gap-6">
           {number && <span className="font-mono text-[var(--color-fog)] uppercase text-sm">{number}</span>}
-          <h3 className="font-display text-xl md:text-2xl font-medium text-[var(--color-ink)] group-hover:text-[var(--color-signal-dim)] transition-colors duration-300">
+          <h3 className={`font-display text-xl md:text-2xl font-medium ${textColor} ${hoverTextColor} transition-colors duration-300`}>
             {title}
           </h3>
         </div>
@@ -17,7 +22,7 @@ export default function Accordion({ id, number, title, description, price }) {
           <motion.div
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[var(--color-ink)]"
+            className={textColor}
           >
             ↓
           </motion.div>

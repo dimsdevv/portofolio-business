@@ -36,13 +36,14 @@ export default function FAQSection() {
           [ 06 — PERTANYAAN UMUM ]
         </h2>
 
-        <div className="border-b border-[var(--color-border-paper)]">
+        <div className="border-b border-[var(--color-border-ink)]">
           {faqs.map((faq) => (
             <Accordion 
               key={faq.id}
               number={faq.id}
               title={faq.question}
               description={faq.answer}
+              theme="dark"
             />
           ))}
         </div>
