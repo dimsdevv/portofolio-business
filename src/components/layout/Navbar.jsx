@@ -72,19 +72,19 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 bg-[var(--color-ink)] z-40 transition-transform duration-300 ease-in-out md:hidden flex flex-col items-center justify-center gap-8 ${
-          mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
+        className={`fixed inset-0 bg-[var(--color-ink)] z-40 transition-opacity duration-300 ease-in-out md:hidden flex flex-col items-center pt-32 pb-8 gap-8 overflow-y-auto ${
+          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        <a href="#work" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] hover:text-[var(--color-signal)] transition-colors">Karya</a>
-        <a href="#services" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] hover:text-[var(--color-signal)] transition-colors">Layanan</a>
-        <a href="#process" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] hover:text-[var(--color-signal)] transition-colors">Proses</a>
-        <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] hover:text-[var(--color-signal)] transition-colors">Kontak</a>
+        <a href="#work" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Karya</a>
+        <a href="#services" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Layanan</a>
+        <a href="#process" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Proses</a>
+        <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Kontak</a>
         
         <a 
           href="#contact" 
           onClick={() => setMobileMenuOpen(false)} 
-          className="mt-8 border border-[var(--color-signal)] text-[var(--color-signal)] px-8 py-4 font-medium rounded-sm active:bg-[var(--color-signal)] active:text-[var(--color-ink)] transition-colors"
+          className="mt-4 border border-[var(--color-signal)] text-[var(--color-signal)] px-8 py-4 font-medium rounded-sm active:bg-[var(--color-signal)] active:text-[var(--color-ink)] transition-colors"
         >
           Mulai Proyek Anda
         </a>
