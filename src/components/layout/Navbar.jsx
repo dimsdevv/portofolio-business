@@ -23,7 +23,7 @@ export default function Navbar() {
       <div className="container mx-auto px-6 h-full flex items-center justify-between">
         {/* Left: Logo */}
         <div className="flex-shrink-0">
-          <a href="#" className="font-display font-semibold text-2xl text-[var(--color-paper)] tracking-tight">
+          <a href="/" className="font-display font-semibold text-2xl text-[var(--color-paper)] tracking-tight">
             origindevv<span className="text-[var(--color-signal)]">·</span>
           </a>
         </div>

@@ -77,7 +77,7 @@ export default function WorkSection() {
       </div>
 
       <div className="container mx-auto px-6 mt-16 flex justify-end">
-        <a href="#" className="font-mono text-[var(--color-paper)] text-sm uppercase hover:text-[var(--color-signal)] transition-colors border-l-2 border-[var(--color-signal)] pl-4 py-1">
+        <a href="/#work" className="font-mono text-[var(--color-paper)] text-sm uppercase hover:text-[var(--color-signal)] transition-colors border-l-2 border-[var(--color-signal)] pl-4 py-1">
           Lihat Semua Proyek →
         </a>
       </div>
