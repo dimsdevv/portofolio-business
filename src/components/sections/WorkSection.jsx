@@ -82,7 +82,7 @@ export default function WorkSection() {
         </a>
       </div>
 
-      {/* Floating Image (Desktop Only) */}
+      {/* Floating Media (Desktop Only) */}
       <div 
         className="fixed pointer-events-none z-40 hidden md:block w-[400px] aspect-[4/3] rounded-sm overflow-hidden"
         style={{
@@ -95,12 +95,24 @@ export default function WorkSection() {
         }}
       >
         {projects.map(p => (
-          <img 
-            key={p.id}
-            src={p.thumbnail}
-            alt={p.name}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${hoveredProject?.id === p.id ? 'opacity-100' : 'opacity-0'}`}
-          />
+          <div key={p.id} className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${hoveredProject?.id === p.id ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
+            {p.hoverVideo && p.hoverVideo.match(/\.(mp4|webm)$/i) ? (
+              <video 
+                src={p.hoverVideo} 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <img 
+                src={p.hoverVideo || p.thumbnail} 
+                alt={p.name}
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
         ))}
       </div>
     </section>

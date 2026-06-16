@@ -1,6 +1,7 @@
 import HeroSection from '../components/sections/HeroSection'
 import MarqueeSection from '../components/sections/MarqueeSection'
 import WorkSection from '../components/sections/WorkSection'
+import TechStackSection from '../components/sections/TechStackSection'
 import ServicesSection from '../components/sections/ServicesSection'
 import ProcessSection from '../components/sections/ProcessSection'
 import AboutSection from '../components/sections/AboutSection'
@@ -21,6 +22,7 @@ export default function Home() {
       <HeroSection />
       <MarqueeSection />
       <WorkSection />
+      <TechStackSection />
       <ServicesSection />
       <ProcessSection />
       <AboutSection />

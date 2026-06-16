@@ -14,7 +14,7 @@ export default function Admin() {
   const [formData, setFormData] = useState({
     number: '', name: '', slug: '', category: '', year: '', 
     description: '', thumbnail: '', tags: '', url: '', 
-    content: '', challenge: '', approach: '', impact: '', gallery: ''
+    content: '', challenge: '', approach: '', impact: '', gallery: '', hoverVideo: ''
   })
   
   const [isLoading, setIsLoading] = useState(false)
@@ -142,7 +142,7 @@ export default function Admin() {
       setFormData({
         number: '', name: '', slug: '', category: '', year: '', 
         description: '', thumbnail: '', tags: '', url: '', 
-        content: '', challenge: '', approach: '', impact: '', gallery: ''
+        content: '', challenge: '', approach: '', impact: '', gallery: '', hoverVideo: ''
       })
     }
     setView('form')
@@ -274,6 +274,19 @@ export default function Admin() {
                     <input type="file" onChange={(e) => handleImageUpload(e, 'thumbnail')} className="text-sm font-mono" />
                   </div>
                   {formData.thumbnail && <img src={formData.thumbnail} alt="thumb" className="h-20 object-cover mt-4" />}
+                </div>
+
+                <div className="mb-6">
+                  <label className="block font-mono text-xs uppercase text-[var(--color-fog)] mb-2">Hover Video/GIF (URL atau Upload .mp4/.webm/.gif)</label>
+                  <div className="flex gap-4 items-center">
+                    <input type="text" value={formData.hoverVideo || ''} onChange={e=>setFormData({...formData, hoverVideo: e.target.value})} className="flex-1 bg-transparent border border-[var(--color-border-ink)] p-3 text-[var(--color-paper)] focus:border-[var(--color-signal)] outline-none" />
+                    <input type="file" onChange={(e) => handleImageUpload(e, 'hoverVideo')} className="text-sm font-mono" />
+                  </div>
+                  {formData.hoverVideo && (
+                    formData.hoverVideo.match(/\.(mp4|webm)$/i) ? 
+                      <video src={formData.hoverVideo} autoPlay loop muted playsInline className="h-20 object-cover mt-4" /> :
+                      <img src={formData.hoverVideo} alt="hover media" className="h-20 object-cover mt-4" />
+                  )}
                 </div>
 
                 <div>
