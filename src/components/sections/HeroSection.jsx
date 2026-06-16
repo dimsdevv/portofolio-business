@@ -1,17 +1,46 @@
+import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import AnimatedText from '../ui/AnimatedText'
 import MagneticButton from '../ui/MagneticButton'
+import LiveClock from '../ui/LiveClock'
 
 export default function HeroSection() {
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 1000], [0, 300])
+
+  // Mouse trail state
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouseMove = (e) => {
+    // Get mouse coordinates relative to the section
+    const rect = e.currentTarget.getBoundingClientRect()
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    })
+  }
+
   return (
-    <section className="min-h-[100svh] pt-[120px] pb-20 px-6 flex flex-col justify-center relative overflow-hidden">
+    <section 
+      className="min-h-[100svh] pt-[120px] pb-20 px-6 flex flex-col justify-center relative overflow-hidden group"
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Interactive Mouse Trail Glow */}
+      <div 
+        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.03), transparent 40%)`
+        }}
+      />
+
       <div className="container mx-auto">
         {/* Top Label */}
-        <div className="flex items-center gap-3 font-mono text-sm text-[var(--color-fog)] mb-8">
-          <span className="w-2 h-2 rounded-full bg-[var(--color-signal)] animate-pulse-slow"></span>
-          <span>Menerima klien baru · Kota Cirebon · 2025</span>
+        <div className="mb-12 relative z-10">
+          <LiveClock />
         </div>
 
         {/* Main Heading */}
