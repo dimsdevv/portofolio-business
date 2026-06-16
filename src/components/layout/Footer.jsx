@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function Footer() {
   return (
     <footer className="bg-[var(--color-ink-muted)] pt-[60px] pb-[40px] border-t border-[var(--color-border-ink)]">
@@ -29,10 +31,10 @@ export default function Footer() {
           <div>
             <h4 className="font-mono text-[var(--color-fog)] uppercase text-xs tracking-widest mb-6">Referensi</h4>
             <ul className="flex flex-col gap-3 font-sans text-[var(--color-fog)]">
-              <li><a href="/#blog" className="hover:text-[var(--color-paper)] transition-colors">Blog</a></li>
-              <li><a href="/#work" className="hover:text-[var(--color-paper)] transition-colors">Studi Kasus</a></li>
-              <li><a href="/#services" className="hover:text-[var(--color-paper)] transition-colors">Panduan Harga</a></li>
-              <li><a href="/#privacy" className="hover:text-[var(--color-paper)] transition-colors">Kebijakan Privasi</a></li>
+              <li><Link to="/blog" className="hover:text-[var(--color-paper)] transition-colors">Blog</Link></li>
+              <li><Link to="/studi-kasus" className="hover:text-[var(--color-paper)] transition-colors">Studi Kasus</Link></li>
+              <li><Link to="/panduan-harga" className="hover:text-[var(--color-paper)] transition-colors">Panduan Harga</Link></li>
+              <li><Link to="/kebijakan-privasi" className="hover:text-[var(--color-paper)] transition-colors">Kebijakan Privasi</Link></li>
             </ul>
           </div>
           

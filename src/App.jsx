@@ -6,6 +6,10 @@ import Footer from './components/layout/Footer'
 import Home from './pages/Home'
 import ProjectDetail from './pages/ProjectDetail'
 import Admin from './pages/Admin'
+import PricingGuide from './pages/PricingGuide'
+import StudiKasus from './pages/StudiKasus'
+import Blog from './pages/Blog'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 
 // Helper component to scroll to anchor links on route change
 function ScrollToAnchor() {
@@ -36,6 +40,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/project/:slug" element={<ProjectDetail />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/panduan-harga" element={<PricingGuide />} />
+        <Route path="/studi-kasus" element={<StudiKasus />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/kebijakan-privasi" element={<PrivacyPolicy />} />
       </Routes>
 
       <Footer />
