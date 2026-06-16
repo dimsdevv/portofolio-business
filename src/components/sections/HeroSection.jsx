@@ -1,7 +1,10 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import AnimatedText from '../ui/AnimatedText'
+import MagneticButton from '../ui/MagneticButton'
 
 export default function HeroSection() {
+  const { scrollY } = useScroll()
+  const y = useTransform(scrollY, [0, 1000], [0, 300])
   return (
     <section className="min-h-[100svh] pt-[120px] pb-20 px-6 flex flex-col justify-center relative overflow-hidden">
       <div className="container mx-auto">
@@ -12,7 +15,10 @@ export default function HeroSection() {
         </div>
 
         {/* Main Heading */}
-        <h1 className="font-display text-[var(--text-display)] text-[var(--color-paper)] leading-[0.95] tracking-tight max-w-5xl relative z-10 uppercase">
+        <motion.h1 
+          className="font-display text-[var(--text-display)] text-[var(--color-paper)] leading-[0.95] tracking-tight max-w-5xl relative z-10 uppercase"
+          style={{ y }}
+        >
           <AnimatedText text="Kami membangun website yang menghasilkan. " />
           <motion.span 
             className="italic text-[var(--color-signal)] inline-block"
@@ -22,7 +28,7 @@ export default function HeroSection() {
           >
             profit.
           </motion.span>
-        </h1>
+        </motion.h1>
 
         {/* Editorial Sub-copy (positioned right) */}
         <motion.div 
@@ -43,9 +49,12 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1 }}
         >
-          <a href="#work" className="inline-flex justify-center items-center bg-[var(--color-signal)] text-[var(--color-ink)] px-8 py-4 font-semibold text-lg hover:bg-[var(--color-signal-dim)] transition-colors rounded-sm w-full sm:w-auto">
+          <MagneticButton 
+            href="#work" 
+            className="inline-flex justify-center items-center bg-[var(--color-signal)] text-[var(--color-ink)] px-8 py-4 font-semibold text-lg hover:bg-[#000] hover:text-[var(--color-signal)] transition-colors rounded-sm w-full sm:w-auto"
+          >
             Lihat Karya Kami
-          </a>
+          </MagneticButton>
           <span className="font-mono text-[var(--color-fog)] text-sm text-center sm:text-left">
             atau gulir untuk menjelajah ↓
           </span>

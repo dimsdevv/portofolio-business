@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { services } from '../data/services'
+import ProjectEstimator from '../components/calculator/ProjectEstimator'
 
 export default function PricingGuide() {
   return (
@@ -33,6 +34,10 @@ export default function PricingGuide() {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-24">
+          <ProjectEstimator />
         </div>
 
         <div className="mt-24 border-t border-[var(--color-border-ink)] pt-16">

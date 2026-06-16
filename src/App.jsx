@@ -10,6 +10,8 @@ import PricingGuide from './pages/PricingGuide'
 import StudiKasus from './pages/StudiKasus'
 import Blog from './pages/Blog'
 import PrivacyPolicy from './pages/PrivacyPolicy'
+import NotFound from './pages/NotFound'
+import FloatingContact from './components/ui/FloatingContact'
 
 // Helper component to scroll to anchor links on route change
 function ScrollToAnchor() {
@@ -44,8 +46,10 @@ function App() {
         <Route path="/studi-kasus" element={<StudiKasus />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/kebijakan-privasi" element={<PrivacyPolicy />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
+      <FloatingContact />
       <Footer />
     </>
   )
