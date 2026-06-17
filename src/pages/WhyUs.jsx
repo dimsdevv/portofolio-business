@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import AnimatedText from '../components/ui/AnimatedText'
 import MagneticButton from '../components/ui/MagneticButton'
 import { Zap, Layout, Search, Smartphone, Shield, CheckCircle2, XCircle } from 'lucide-react'
+import FAQSection from '../components/sections/FAQSection'
 
 export default function WhyUs() {
   const benefits = [
@@ -199,6 +200,28 @@ export default function WhyUs() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQSection 
+        subtitle="[ KERAGUAN UMUM ]"
+        faqsData={[
+          {
+            id: "01",
+            question: "Kenapa harganya bisa lebih tinggi dari freelancer biasa?",
+            answer: "Kami tidak menggunakan template WordPress murahan. Kami membangun ekosistem digital secara kustom dari nol dengan fokus pada kecepatan dan konversi. Ini adalah investasi bisnis yang dirancang untuk balik modal melalui penjualan yang dihasilkan."
+          },
+          {
+            id: "02",
+            question: "Apakah saya benar-benar membutuhkan website kustom?",
+            answer: "Jika bisnis Anda baru mulai dan dana sangat terbatas, website template mungkin cukup. Namun, jika Anda ingin skala besar, menonjol dari kompetitor, dan membutuhkan performa maksimal untuk mendominasi Google, website kustom adalah keharusan."
+          },
+          {
+            id: "03",
+            question: "Saya sudah punya website, apakah bisa diperbaiki saja?",
+            answer: "Kami biasanya membangun ulang dari awal untuk memastikan standar kualitas, keamanan, dan kecepatan kami terpenuhi. Namun, kami sangat terbuka untuk melakukan perombakan total (revamp) dengan memanfaatkan materi dari website lama Anda."
+          }
+        ]}
+      />
 
       {/* Final CTA */}
       <section className="py-32 px-6 relative overflow-hidden">

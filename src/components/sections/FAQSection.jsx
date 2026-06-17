@@ -1,7 +1,11 @@
 import Accordion from '../ui/Accordion'
 
-export default function FAQSection() {
-  const faqs = [
+export default function FAQSection({ 
+  title = "PERTANYAAN UMUM", 
+  subtitle = "[ 06 — PERTANYAAN UMUM ]",
+  faqsData
+}) {
+  const defaultFaqs = [
     {
       id: "01",
       question: "Berapa lama proses pembuatan website?",
@@ -29,11 +33,13 @@ export default function FAQSection() {
     }
   ]
 
+  const faqs = faqsData || defaultFaqs
+
   return (
     <section className="py-32 bg-[var(--color-ink)]">
       <div className="container mx-auto px-6 max-w-4xl">
         <h2 className="font-mono text-[var(--color-fog)] text-sm tracking-[0.12em] uppercase mb-16 text-center">
-          [ 06 — PERTANYAAN UMUM ]
+          {subtitle}
         </h2>
 
         <div className="border-b border-[var(--color-border-ink)]">
