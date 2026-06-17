@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <Link to="/" className="font-display font-semibold text-xl text-[var(--color-paper)] tracking-tight block mb-8">
               origindevv<span className="text-[var(--color-signal)]">·</span>
-            </a>
+            </Link>
             <div className="font-mono text-[var(--color-fog)] text-sm leading-relaxed">
               <p>Kota Cirebon</p>
               <p>2025</p>
