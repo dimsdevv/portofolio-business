@@ -11,6 +11,7 @@ import PricingGuide from './pages/PricingGuide'
 import StudiKasus from './pages/StudiKasus'
 import Blog from './pages/Blog'
 import PrivacyPolicy from './pages/PrivacyPolicy'
+import WhyUs from './pages/WhyUs'
 import NotFound from './pages/NotFound'
 import FloatingContact from './components/ui/FloatingContact'
 
@@ -56,6 +57,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/project/:slug" element={<ProjectDetail />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/mengapa-kami" element={<WhyUs />} />
             <Route path="/panduan-harga" element={<PricingGuide />} />
             <Route path="/studi-kasus" element={<StudiKasus />} />
             <Route path="/blog" element={<Blog />} />

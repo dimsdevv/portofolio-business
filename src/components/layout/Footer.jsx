@@ -31,6 +31,7 @@ export default function Footer() {
           <div>
             <h4 className="font-mono text-[var(--color-fog)] uppercase text-xs tracking-widest mb-6">Referensi</h4>
             <ul className="flex flex-col gap-3 font-sans text-[var(--color-fog)]">
+              <li><Link to="/mengapa-kami" className="hover:text-[var(--color-paper)] transition-colors">Mengapa Kami?</Link></li>
               <li><Link to="/blog" className="hover:text-[var(--color-paper)] transition-colors">Blog</Link></li>
               <li><Link to="/studi-kasus" className="hover:text-[var(--color-paper)] transition-colors">Studi Kasus</Link></li>
               <li><Link to="/panduan-harga" className="hover:text-[var(--color-paper)] transition-colors">Panduan Harga</Link></li>
