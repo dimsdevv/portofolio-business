@@ -4,6 +4,7 @@ import AnimatedText from '../components/ui/AnimatedText'
 import MagneticButton from '../components/ui/MagneticButton'
 import { Zap, Layout, Search, Smartphone, Shield, CheckCircle2, XCircle } from 'lucide-react'
 import FAQSection from '../components/sections/FAQSection'
+import { Link } from 'react-router-dom'
 
 export default function WhyUs() {
   const benefits = [
@@ -79,7 +80,7 @@ export default function WhyUs() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <MagneticButton 
-              href="/#contact" 
+              to="/#contact" 
               className="inline-flex justify-center items-center bg-[var(--color-signal)] text-[var(--color-ink)] px-8 py-4 font-semibold text-lg hover:bg-[var(--color-paper)] transition-colors rounded-sm"
             >
               Mulai Proyek Anda
@@ -126,9 +127,9 @@ export default function WhyUs() {
             >
               <h4 className="font-display text-2xl mb-4">Ingin Hasil yang Sama?</h4>
               <p className="font-sans mb-8">Berhenti membuang peluang dengan website yang tidak bekerja maksimal.</p>
-              <a href="/#contact" className="border border-[var(--color-ink)] px-6 py-3 font-semibold hover:bg-[var(--color-ink)] hover:text-[var(--color-signal)] transition-colors rounded-sm">
+              <Link to="/#contact" className="border border-[var(--color-ink)] px-6 py-3 font-semibold hover:bg-[var(--color-ink)] hover:text-[var(--color-signal)] transition-colors rounded-sm">
                 Konsultasi Gratis
-              </a>
+              </Link>
             </motion.div>
           </motion.div>
         </div>
@@ -253,7 +254,7 @@ export default function WhyUs() {
             viewport={{ once: true }}
           >
             <MagneticButton 
-              href="/#contact" 
+              to="/#contact" 
               className="inline-flex justify-center items-center bg-[var(--color-paper)] text-[var(--color-ink)] px-10 py-5 font-bold text-lg hover:bg-[var(--color-signal)] transition-colors rounded-sm shadow-lg shadow-[var(--color-signal)]/10"
             >
               Konsultasi Gratis Sekarang

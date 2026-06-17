@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
           {/* Column 1 */}
           <div>
-            <a href="/" className="font-display font-semibold text-xl text-[var(--color-paper)] tracking-tight block mb-8">
+            <Link to="/" className="font-display font-semibold text-xl text-[var(--color-paper)] tracking-tight block mb-8">
               origindevv<span className="text-[var(--color-signal)]">·</span>
             </a>
             <div className="font-mono text-[var(--color-fog)] text-sm leading-relaxed">
@@ -20,10 +20,10 @@ export default function Footer() {
           <div>
             <h4 className="font-mono text-[var(--color-fog)] uppercase text-xs tracking-widest mb-6">Layanan</h4>
             <ul className="flex flex-col gap-3 font-sans text-[var(--color-fog)]">
-              <li><a href="/#services" className="hover:text-[var(--color-paper)] transition-colors">Company Profile</a></li>
-              <li><a href="/#services" className="hover:text-[var(--color-paper)] transition-colors">Landing Page</a></li>
-              <li><a href="/#services" className="hover:text-[var(--color-paper)] transition-colors">E-Commerce</a></li>
-              <li><a href="/#work" className="hover:text-[var(--color-paper)] transition-colors">Portfolio</a></li>
+              <li><Link to="/#services" className="hover:text-[var(--color-paper)] transition-colors">Company Profile</Link></li>
+              <li><Link to="/#services" className="hover:text-[var(--color-paper)] transition-colors">Landing Page</Link></li>
+              <li><Link to="/#services" className="hover:text-[var(--color-paper)] transition-colors">E-Commerce</Link></li>
+              <li><Link to="/#work" className="hover:text-[var(--color-paper)] transition-colors">Portfolio</Link></li>
             </ul>
           </div>
           

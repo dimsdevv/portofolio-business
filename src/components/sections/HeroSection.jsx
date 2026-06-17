@@ -79,7 +79,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 1 }}
         >
           <MagneticButton 
-            href="#work" 
+            to="/#work" 
             className="inline-flex justify-center items-center bg-[var(--color-signal)] text-[var(--color-ink)] px-8 py-4 font-semibold text-lg hover:bg-[#000] hover:text-[var(--color-signal)] transition-colors rounded-sm w-full sm:w-auto"
           >
             Lihat Karya Kami

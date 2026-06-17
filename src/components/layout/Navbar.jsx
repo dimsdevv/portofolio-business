@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -41,24 +42,24 @@ export default function Navbar() {
         
         {/* Center: Links (Hidden on mobile) */}
         <div className="hidden md:flex items-center gap-8 font-mono text-[var(--color-fog)] text-sm uppercase tracking-widest">
-          <a href="#work" className="hover:text-[var(--color-paper)] transition-colors">Karya</a>
+          <Link to="/#work" className="hover:text-[var(--color-paper)] transition-colors">Karya</Link>
           <span className="text-[var(--color-border-ink)]">·</span>
-          <a href="#services" className="hover:text-[var(--color-paper)] transition-colors">Layanan</a>
+          <Link to="/#services" className="hover:text-[var(--color-paper)] transition-colors">Layanan</Link>
           <span className="text-[var(--color-border-ink)]">·</span>
-          <a href="#process" className="hover:text-[var(--color-paper)] transition-colors">Proses</a>
+          <Link to="/#process" className="hover:text-[var(--color-paper)] transition-colors">Proses</Link>
           <span className="text-[var(--color-border-ink)]">·</span>
-          <a href="#contact" className="hover:text-[var(--color-paper)] transition-colors">Kontak</a>
+          <Link to="/#contact" className="hover:text-[var(--color-paper)] transition-colors">Kontak</Link>
         </div>
         
         {/* Right: CTA & Mobile Menu Button */}
         <div className="flex items-center gap-4 z-50">
-          <a 
-            href="#contact" 
+          <Link 
+            to="/#contact" 
             className="hidden md:flex group items-center gap-2 border border-[var(--color-signal)] text-[var(--color-signal)] px-5 py-2.5 hover:bg-[var(--color-signal)] hover:text-[var(--color-ink)] transition-colors font-medium rounded-sm"
           >
             <span>Mulai Proyek Anda</span>
             <span className="transform group-hover:translate-x-1 transition-transform">→</span>
-          </a>
+          </Link>
           
           <button 
             className="md:hidden text-[var(--color-paper)] p-2"
@@ -76,18 +77,18 @@ export default function Navbar() {
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        <a href="#work" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Karya</a>
-        <a href="#services" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Layanan</a>
-        <a href="#process" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Proses</a>
-        <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Kontak</a>
+        <Link to="/#work" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Karya</Link>
+        <Link to="/#services" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Layanan</Link>
+        <Link to="/#process" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Proses</Link>
+        <Link to="/#contact" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Kontak</Link>
         
-        <a 
-          href="#contact" 
+        <Link 
+          to="/#contact" 
           onClick={() => setMobileMenuOpen(false)} 
           className="mt-4 border border-[var(--color-signal)] text-[var(--color-signal)] px-8 py-4 font-medium rounded-sm active:bg-[var(--color-signal)] active:text-[var(--color-ink)] transition-colors"
         >
           Mulai Proyek Anda
-        </a>
+        </Link>
       </div>
     </nav>
   )
