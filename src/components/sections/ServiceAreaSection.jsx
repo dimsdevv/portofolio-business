@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { MapPin } from 'lucide-react'
-import mapIndonesia from '../../assets/map-indonesia.jpg'
+import mapIndonesia from '../../assets/map-indonesia.png'
 
 export default function ServiceAreaSection() {
   const cities = [
@@ -27,8 +27,8 @@ export default function ServiceAreaSection() {
   return (
     <section className="py-32 bg-[var(--color-paper)] relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-12 mb-20">
-          <div className="max-w-2xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-12 mb-20">
+          <div className="max-w-2xl lg:w-1/2">
             <h2 className="font-mono text-[var(--color-signal)] text-sm tracking-[0.12em] uppercase mb-8">
               [ AREA LAYANAN ]
             </h2>
@@ -40,11 +40,11 @@ export default function ServiceAreaSection() {
             </p>
           </div>
           
-          <div className="hidden lg:block w-1/3">
+          <div className="hidden lg:block lg:w-1/2 flex justify-end">
             <img 
               src={mapIndonesia} 
               alt="Peta Area Layanan Indonesia" 
-              className="w-full h-auto object-contain mix-blend-multiply opacity-80"
+              className="w-[120%] max-w-none h-auto object-contain opacity-90 -mr-12"
             />
           </div>
         </div>
