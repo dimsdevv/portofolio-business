@@ -21,7 +21,21 @@ export default function AboutPage() {
       title: "Kemitraan Jangka Panjang",
       description: "Kami tidak bekerja hit-and-run. Kami menjadi mitra teknologi yang membantu Anda beradaptasi, tumbuh, dan memelihara aset digital Anda."
     }
-  ]
+  ];
+
+  const processes = [
+    { step: "01", title: "Discovery", desc: "Menganalisis kebutuhan bisnis, target audiens, dan tujuan utama dari website Anda." },
+    { step: "02", title: "Design", desc: "Membuat wireframe dan desain UI/UX interaktif menggunakan Figma untuk persetujuan Anda." },
+    { step: "03", title: "Development", desc: "Menerjemahkan desain menjadi baris kode yang bersih, cepat, dan responsif." },
+    { step: "04", title: "Launch", desc: "Melakukan pengujian ketat, optimasi SEO, dan peluncuran produk ke server produksi." }
+  ];
+
+  const techStack = [
+    { category: "Frontend", tools: ["React.js", "Tailwind CSS", "TypeScript", "Framer Motion", "Next.js"] },
+    { category: "Backend", tools: ["Node.js", "Express", "PostgreSQL", "MySQL", "Prisma ORM"] },
+    { category: "DevOps & Cloud", tools: ["Vercel", "Docker", "GitHub Actions", "Google Cloud", "Netlify", "Azure"] },
+    { category: "Design & UX", tools: ["Figma", "SEO Optimization", "Responsive Design", "Web Performance"] }
+  ];
 
   return (
     <main className="bg-[var(--color-ink)] min-h-screen">
@@ -62,7 +76,6 @@ export default function AboutPage() {
               transition={{ duration: 1, delay: 0.2 }}
               className="lg:w-1/2 w-full aspect-square md:aspect-[4/3] bg-[var(--color-paper)] relative rounded-sm overflow-hidden group"
             >
-              {/* Abstrak visual / placeholder citra studio */}
               <div className="absolute inset-0 bg-[var(--color-signal)]/10 flex items-center justify-center p-12">
                 <div className="w-full h-full border border-[var(--color-ink)]/10 rounded-full animate-[spin_40s_linear_infinite] relative flex items-center justify-center">
                   <div className="w-2/3 h-2/3 border border-[var(--color-ink)]/20 rounded-full absolute" />
@@ -72,6 +85,24 @@ export default function AboutPage() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Manifesto Section */}
+      <section className="py-24 bg-[var(--color-signal)] relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto"
+          >
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[var(--color-ink)] leading-tight">
+              "Kami menolak membuat website yang lambat. Setiap piksel dan baris kode dirancang untuk membawa hasil nyata bagi bisnis Anda."
+            </h2>
+            <div className="mt-12 w-24 h-1 bg-[var(--color-ink)] mx-auto opacity-20"></div>
+          </motion.div>
         </div>
       </section>
 
@@ -106,20 +137,69 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats - Reused aesthetic from AboutSection */}
-      <section className="py-20 bg-[var(--color-signal)] text-[var(--color-ink)]">
+      {/* Deep Dive Process Section */}
+      <section className="py-24 bg-[var(--color-ink)] border-t border-[var(--color-paper)]/10">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-[var(--color-ink)]/20">
-            {[
-              { num: "12+", label: "Klien Puas" },
-              { num: "99%", label: "Skor Performa" },
-              { num: "3+", label: "Tahun Pengalaman" },
-              { num: "100%", label: "Kode Kustom" }
-            ].map((stat, i) => (
-              <div key={i}>
-                <div className="font-display text-4xl md:text-5xl font-bold mb-2">{stat.num}</div>
-                <div className="font-mono text-xs tracking-widest uppercase">{stat.label}</div>
-              </div>
+          <div className="text-center mb-20">
+            <h2 className="font-mono text-[var(--color-signal)] text-sm tracking-[0.12em] uppercase mb-4">
+              [ WORKFLOW ]
+            </h2>
+            <h3 className="font-display text-4xl md:text-5xl text-[var(--color-paper)]">
+              Proses Pengerjaan
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {processes.map((proc, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-[var(--color-paper)]/5 p-8 rounded-sm hover:bg-[var(--color-paper)]/10 transition-colors border border-[var(--color-paper)]/10"
+              >
+                <div className="font-display text-5xl text-[var(--color-signal)] opacity-50 mb-6">{proc.step}</div>
+                <h4 className="font-display text-2xl text-[var(--color-paper)] mb-4">{proc.title}</h4>
+                <p className="font-sans text-[var(--color-fog)] leading-relaxed">{proc.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Stack Section */}
+      <section className="py-24 bg-[var(--color-paper)]">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mb-16">
+            <h2 className="font-display text-4xl text-[var(--color-ink)] mb-6">Teknologi yang Kami Gunakan</h2>
+            <p className="font-sans text-[var(--color-ink-subtle)] text-lg">
+              Kami menggunakan teknologi modern standar industri untuk memastikan website Anda cepat, aman, dan mudah dikembangkan di masa depan.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {techStack.map((stack, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="border-l-2 border-[var(--color-signal)] pl-6"
+              >
+                <h3 className="font-mono tracking-widest text-[var(--color-ink)] uppercase mb-6">{stack.category}</h3>
+                <div className="flex flex-wrap gap-3">
+                  {stack.tools.map((tool, i) => (
+                    <span 
+                      key={i} 
+                      className="px-4 py-2 bg-[var(--color-ink)] text-[var(--color-paper)] font-sans text-sm rounded-full"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
