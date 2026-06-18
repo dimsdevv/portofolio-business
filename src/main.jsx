@@ -7,8 +7,8 @@ import { PostHogProvider } from 'posthog-js/react'
 import './index.css'
 import App from './App.jsx'
 
-posthog.init(import.meta.env.VITE_POSTHOG_PROJECT_TOKEN, {
-  api_host: import.meta.env.VITE_POSTHOG_HOST,
+posthog.init('phc_ptkzpJHE4XTfVYkQaMNH2unB8PbsHkHDqQntmfM2xHZs', {
+  api_host: 'https://us.i.posthog.com',
   person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
 })
 
