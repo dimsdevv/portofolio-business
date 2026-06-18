@@ -12,6 +12,8 @@ import StudiKasus from './pages/StudiKasus'
 import Blog from './pages/Blog'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import WhyUs from './pages/WhyUs'
+import ServicesPage from './pages/ServicesPage'
+import AboutPage from './pages/AboutPage'
 import NotFound from './pages/NotFound'
 import FloatingContact from './components/ui/FloatingContact'
 
@@ -55,6 +57,8 @@ function App() {
         >
           <Routes location={location}>
             <Route path="/" element={<Home />} />
+            <Route path="/layanan" element={<ServicesPage />} />
+            <Route path="/tentang-kami" element={<AboutPage />} />
             <Route path="/project/:slug" element={<ProjectDetail />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/mengapa-kami" element={<WhyUs />} />

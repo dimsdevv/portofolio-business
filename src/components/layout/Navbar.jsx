@@ -44,9 +44,9 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8 font-mono text-[var(--color-fog)] text-sm uppercase tracking-widest">
           <Link to="/#work" className="hover:text-[var(--color-paper)] transition-colors">Karya</Link>
           <span className="text-[var(--color-border-ink)]">·</span>
-          <Link to="/#services" className="hover:text-[var(--color-paper)] transition-colors">Layanan</Link>
+          <Link to="/layanan" className="hover:text-[var(--color-paper)] transition-colors">Layanan</Link>
           <span className="text-[var(--color-border-ink)]">·</span>
-          <Link to="/#process" className="hover:text-[var(--color-paper)] transition-colors">Proses</Link>
+          <Link to="/tentang-kami" className="hover:text-[var(--color-paper)] transition-colors">Tentang Kami</Link>
           <span className="text-[var(--color-border-ink)]">·</span>
           <Link to="/#contact" className="hover:text-[var(--color-paper)] transition-colors">Kontak</Link>
         </div>
@@ -78,8 +78,8 @@ export default function Navbar() {
         }`}
       >
         <Link to="/#work" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Karya</Link>
-        <Link to="/#services" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Layanan</Link>
-        <Link to="/#process" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Proses</Link>
+        <Link to="/layanan" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Layanan</Link>
+        <Link to="/tentang-kami" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Tentang Kami</Link>
         <Link to="/#contact" onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl text-[var(--color-paper)] active:text-[var(--color-signal)] transition-colors">Kontak</Link>
         
         <Link 
