@@ -45,10 +45,14 @@ const requireAuth = (req, res, next) => {
 
 // --- PUBLIC ROUTES --- //
 
-// Get all projects
+// Get all projects (or filtered by featured)
 app.get('/api/projects', async (req, res) => {
   try {
+    const isFeatured = req.query.featured === 'true';
+    const filter = isFeatured ? { isFeatured: true } : {};
+    
     const projects = await prisma.project.findMany({
+      where: filter,
       orderBy: { number: 'asc' }
     });
     res.json(projects);

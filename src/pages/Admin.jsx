@@ -14,7 +14,8 @@ export default function Admin() {
   const [formData, setFormData] = useState({
     number: '', name: '', slug: '', category: '', year: '', 
     description: '', thumbnail: '', tags: '', url: '', 
-    content: '', challenge: '', approach: '', impact: '', gallery: '', hoverVideo: ''
+    content: '', challenge: '', approach: '', impact: '', gallery: '', hoverVideo: '',
+    isFeatured: false
   })
   
   const [isLoading, setIsLoading] = useState(false)
@@ -142,7 +143,8 @@ export default function Admin() {
       setFormData({
         number: '', name: '', slug: '', category: '', year: '', 
         description: '', thumbnail: '', tags: '', url: '', 
-        content: '', challenge: '', approach: '', impact: '', gallery: '', hoverVideo: ''
+        content: '', challenge: '', approach: '', impact: '', gallery: '', hoverVideo: '',
+        isFeatured: false
       })
     }
     setView('form')
@@ -254,9 +256,26 @@ export default function Admin() {
                   <input type="text" required value={formData.year} onChange={e=>setFormData({...formData, year: e.target.value})} className="w-full bg-transparent border border-[var(--color-border-ink)] p-3 text-[var(--color-paper)] focus:border-[var(--color-signal)] outline-none" />
                 </div>
                 <div>
+                  <label className="block font-mono text-xs uppercase text-[var(--color-fog)] mb-2">Tautan URL Asli (contoh: https://berikopi.com)</label>
+                  <input type="text" value={formData.url || ''} onChange={e=>setFormData({...formData, url: e.target.value})} className="w-full bg-transparent border border-[var(--color-border-ink)] p-3 text-[var(--color-paper)] focus:border-[var(--color-signal)] outline-none" placeholder="Kosongkan atau ketik # jika tidak ada" />
+                </div>
+                <div className="md:col-span-2">
                   <label className="block font-mono text-xs uppercase text-[var(--color-fog)] mb-2">Tags (Pisahkan koma)</label>
                   <input type="text" required value={formData.tags} onChange={e=>setFormData({...formData, tags: e.target.value})} className="w-full bg-transparent border border-[var(--color-border-ink)] p-3 text-[var(--color-paper)] focus:border-[var(--color-signal)] outline-none" />
                 </div>
+              </div>
+
+              <div className="flex items-center gap-3 border border-[var(--color-border-ink)] p-4">
+                <input 
+                  type="checkbox" 
+                  id="isFeatured"
+                  checked={formData.isFeatured || false} 
+                  onChange={e=>setFormData({...formData, isFeatured: e.target.checked})} 
+                  className="w-5 h-5 accent-[var(--color-signal)]"
+                />
+                <label htmlFor="isFeatured" className="font-mono text-sm uppercase text-[var(--color-paper)] cursor-pointer">
+                  Tampilkan di Beranda (Karya Terpilih)
+                </label>
               </div>
 
               <div>

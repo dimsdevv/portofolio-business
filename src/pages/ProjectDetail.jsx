@@ -89,7 +89,7 @@ export default function ProjectDetail() {
       {/* Meta Information */}
       <section className="container mx-auto px-6 mb-24">
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12"
+          className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -112,6 +112,14 @@ export default function ProjectDetail() {
               ))}
             </div>
           </div>
+          {project.url && project.url !== '#' && (
+            <div>
+              <h4 className="font-mono text-[var(--color-fog)] text-xs uppercase tracking-widest mb-3">Tautan</h4>
+              <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-sans text-[var(--color-signal)] text-lg hover:underline transition-all">
+                Kunjungi Live ↗
+              </a>
+            </div>
+          )}
         </motion.div>
       </section>
 
