@@ -22,6 +22,7 @@ export default function Admin() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
+  const [deleteConfirm, setDeleteConfirm] = useState({ show: false, id: null, name: '' })
 
   const showToast = (message, type = 'success') => {
     setToast({ show: true, message, type })
@@ -131,18 +132,29 @@ export default function Admin() {
     setIsLoading(false)
   }
 
-  const handleDelete = async (id) => {
-    if (!confirm('Yakin ingin menghapus proyek ini?')) return
+  const handleDelete = async () => {
+    if (!deleteConfirm.id) return
+    setIsLoading(true)
     try {
-      await fetch(`${API_URL}/projects/${id}`, {
+      await fetch(`${API_URL}/projects/${deleteConfirm.id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       })
       showToast('Proyek berhasil dihapus', 'success')
+      setDeleteConfirm({ show: false, id: null, name: '' })
       fetchProjects()
     } catch (err) {
       showToast('Gagal menghapus proyek', 'error')
     }
+    setIsLoading(false)
+  }
+
+  const promptDelete = (id, name) => {
+    setDeleteConfirm({ show: true, id, name })
+  }
+
+  const cancelDelete = () => {
+    setDeleteConfirm({ show: false, id: null, name: '' })
   }
 
   const openForm = (project = null) => {
@@ -218,6 +230,48 @@ export default function Admin() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Delete Confirmation Modal */}
+      <AnimatePresence>
+        {deleteConfirm.show && (
+          <div className="fixed inset-0 z-[70] flex items-center justify-center p-6">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              onClick={cancelDelete}
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="relative bg-[var(--color-ink)] border border-red-500/50 p-8 w-full max-w-md shadow-2xl z-10"
+            >
+              <h3 className="font-display text-3xl uppercase text-red-500 mb-2">Hapus Proyek?</h3>
+              <p className="font-sans text-[var(--color-fog)] mb-8">
+                Apakah Anda yakin ingin menghapus proyek <span className="text-[var(--color-paper)] font-mono">[{deleteConfirm.name}]</span> secara permanen? Tindakan ini tidak dapat dibatalkan.
+              </p>
+              <div className="flex gap-4 font-mono text-sm uppercase">
+                <button 
+                  onClick={cancelDelete}
+                  className="flex-1 py-3 border border-[var(--color-border-ink)] hover:bg-[var(--color-paper-off)] transition-colors text-[var(--color-fog)] hover:text-[var(--color-paper)]"
+                >
+                  Batal
+                </button>
+                <button 
+                  onClick={handleDelete}
+                  disabled={isLoading}
+                  className="flex-1 py-3 bg-red-500 hover:bg-red-600 transition-colors text-white font-semibold"
+                >
+                  {isLoading ? 'Menghapus...' : 'Ya, Hapus'}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
       
       <div className="container mx-auto px-6">
         <header className="flex flex-col md:flex-row md:items-end justify-between border-b border-[var(--color-border-ink)] pb-8 mb-12">
@@ -249,7 +303,7 @@ export default function Admin() {
                     <span className="font-mono text-[var(--color-signal)] text-xs">{p.number}</span>
                     <div className="flex gap-3 font-mono text-xs">
                       <button onClick={() => openForm(p)} className="text-[var(--color-fog)] group-hover:text-[var(--color-ink)] hover:underline">Edit</button>
-                      <button onClick={() => handleDelete(p.id)} className="text-red-500 hover:underline">Hapus</button>
+                      <button onClick={() => promptDelete(p.id, p.name)} className="text-red-500 hover:underline">Hapus</button>
                     </div>
                   </div>
                   <h3 className="font-display text-3xl uppercase">{p.name}</h3>
