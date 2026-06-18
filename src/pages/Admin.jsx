@@ -203,11 +203,11 @@ export default function Admin() {
       <AnimatePresence>
         {toast.show && (
           <motion.div 
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, x: -50, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: -20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className={`fixed bottom-8 right-8 px-6 py-4 rounded-sm flex items-center gap-3 shadow-2xl z-50 font-mono text-sm uppercase tracking-wide border ${toast.type === 'success' ? 'bg-[var(--color-signal)] text-[var(--color-ink)] border-[var(--color-signal)]' : 'bg-red-500 text-white border-red-500'}`}
+            className={`fixed bottom-8 left-8 px-6 py-4 rounded-sm flex items-center gap-3 shadow-2xl z-[60] font-mono text-sm uppercase tracking-wide border ${toast.type === 'success' ? 'bg-[var(--color-signal)] text-[var(--color-ink)] border-[var(--color-signal)]' : 'bg-red-500 text-white border-red-500'}`}
           >
             {toast.type === 'success' ? (
               <span className="text-lg">✓</span>
