@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { optimizeCloudinaryUrl } from '../../utils/cloudinary'
 
 export default function WorkSection() {
   const [projects, setProjects] = useState([])
@@ -107,8 +108,9 @@ export default function WorkSection() {
               />
             ) : (
               <img 
-                src={p.hoverVideo || p.thumbnail} 
+                src={optimizeCloudinaryUrl(p.hoverVideo || p.thumbnail)} 
                 alt={p.name}
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
             )}

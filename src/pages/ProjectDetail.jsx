@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
+import { optimizeCloudinaryUrl } from '../utils/cloudinary'
 
 export default function ProjectDetail() {
   const { slug } = useParams()
@@ -132,7 +133,7 @@ export default function ProjectDetail() {
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <img 
-            src={project.thumbnail} 
+            src={optimizeCloudinaryUrl(project.thumbnail)} 
             alt={project.name}
             className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700"
           />
@@ -216,7 +217,7 @@ export default function ProjectDetail() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {galleryImages.map((img, i) => (
                 <div key={i} className="aspect-video bg-[var(--color-paper-off)] overflow-hidden rounded-sm">
-                  <img src={img.trim()} alt={`${project.name} detail ${i+1}`} className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500" />
+                  <img src={optimizeCloudinaryUrl(img.trim())} alt={`${project.name} detail ${i+1}`} loading="lazy" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500" />
                 </div>
               ))}
             </div>

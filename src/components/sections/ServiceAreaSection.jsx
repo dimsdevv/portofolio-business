@@ -44,6 +44,7 @@ export default function ServiceAreaSection() {
             <img 
               src={mapIndonesia} 
               alt="Peta Area Layanan Indonesia" 
+              loading="lazy"
               className="w-[120%] max-w-none h-auto object-contain opacity-90 -mr-12"
             />
           </div>
