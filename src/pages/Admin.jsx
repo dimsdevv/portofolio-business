@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
 
@@ -20,6 +21,14 @@ export default function Admin() {
   
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
+
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type })
+    setTimeout(() => {
+      setToast(prev => ({ ...prev, show: false }))
+    }, 4000)
+  }
 
   // Fetch projects on load if logged in
   useEffect(() => {
@@ -89,7 +98,7 @@ export default function Admin() {
         }
       }
     } catch (err) {
-      alert('Gagal upload gambar')
+      showToast('Gagal upload gambar', 'error')
     }
   }
 
@@ -110,13 +119,14 @@ export default function Admin() {
       })
       
       if (res.ok) {
+        showToast('Proyek berhasil disimpan!', 'success')
         setView('list')
         fetchProjects()
       } else {
-        alert('Gagal menyimpan data')
+        showToast('Gagal menyimpan data proyek', 'error')
       }
     } catch (err) {
-      alert('Terjadi kesalahan')
+      showToast('Terjadi kesalahan jaringan', 'error')
     }
     setIsLoading(false)
   }
@@ -128,9 +138,10 @@ export default function Admin() {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       })
+      showToast('Proyek berhasil dihapus', 'success')
       fetchProjects()
     } catch (err) {
-      alert('Gagal menghapus data')
+      showToast('Gagal menghapus proyek', 'error')
     }
   }
 
@@ -185,8 +196,28 @@ export default function Admin() {
 
   // DASHBOARD VIEW
   return (
-    <main className="bg-[var(--color-ink)] min-h-screen pt-32 pb-24 text-[var(--color-paper)]">
+    <main className="bg-[var(--color-ink)] min-h-screen pt-32 pb-24 text-[var(--color-paper)] relative">
       <Helmet><title>Admin Dashboard · origindevv</title></Helmet>
+
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toast.show && (
+          <motion.div 
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className={`fixed bottom-8 right-8 px-6 py-4 rounded-sm flex items-center gap-3 shadow-2xl z-50 font-mono text-sm uppercase tracking-wide border ${toast.type === 'success' ? 'bg-[var(--color-signal)] text-[var(--color-ink)] border-[var(--color-signal)]' : 'bg-red-500 text-white border-red-500'}`}
+          >
+            {toast.type === 'success' ? (
+              <span className="text-lg">✓</span>
+            ) : (
+              <span className="text-lg">⚠</span>
+            )}
+            {toast.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
       
       <div className="container mx-auto px-6">
         <header className="flex flex-col md:flex-row md:items-end justify-between border-b border-[var(--color-border-ink)] pb-8 mb-12">
