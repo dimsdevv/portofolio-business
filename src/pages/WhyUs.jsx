@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Helmet } from 'react-helmet-async'
+import SEO from '../components/SEO'
 import AnimatedText from '../components/ui/AnimatedText'
 import MagneticButton from '../components/ui/MagneticButton'
 import { Zap, Layout, Search, Smartphone, Shield, CheckCircle2, XCircle } from 'lucide-react'
@@ -20,13 +20,13 @@ export default function WhyUs() {
     },
     {
       icon: <Search className="w-8 h-8 text-[var(--color-signal)]" />,
-      title: "Optimalisasi SEO Bawaan",
-      description: "Website bagus tidak ada gunanya jika tidak bisa ditemukan. Struktur kode kami dirancang agar sangat ramah terhadap mesin pencari (SEO-friendly), membantu bisnis Anda mendominasi halaman pertama Google."
+      title: "Fondasi SEO yang Kuat",
+      description: "Bukan hanya terlihat bagus, tapi juga mudah ditemukan. Struktur kode kami dioptimalkan secara mendalam untuk mesin pencari, memberikan Anda keunggulan kompetitif di halaman pertama Google."
     },
     {
       icon: <Smartphone className="w-8 h-8 text-[var(--color-signal)]" />,
-      title: "Responsif & Sempurna di Semua Perangkat",
-      description: "Lebih dari 70% lalu lintas web berasal dari smartphone. Kami memastikan website Anda terlihat dan berfungsi sama sempurnanya di layar HP kecil maupun monitor 4K."
+      title: "Sempurna di Semua Perangkat",
+      description: "Lebih dari 60% pengunjung menggunakan HP. Kami merancang dengan pendekatan Mobile-First, memastikan pengalaman pengguna tetap mulus tanpa cela di layar sekecil apapun."
     },
     {
       icon: <Shield className="w-8 h-8 text-[var(--color-signal)]" />,
@@ -50,10 +50,11 @@ export default function WhyUs() {
 
   return (
     <main className="bg-[var(--color-ink)] min-h-screen text-[var(--color-paper)]">
-      <Helmet>
-        <title>Mengapa Memilih Kami? · origindevv</title>
-        <meta name="description" content="Ketahui keuntungan dan benefit membuat website bersama origindevv. Website super cepat, desain premium, dan ramah SEO untuk meningkatkan profit Anda." />
-      </Helmet>
+      <SEO 
+        title="Mengapa Memilih Kami?" 
+        description="Ketahui keuntungan dan benefit membuat website bersama origindevv. Website super cepat, desain premium, dan ramah SEO untuk meningkatkan profit Anda." 
+        url="https://portofolio-busines.netlify.app/mengapa-kami"
+      />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 border-b border-[var(--color-border-ink)]">

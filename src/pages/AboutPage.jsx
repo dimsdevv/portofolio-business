@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Helmet } from 'react-helmet-async'
+import SEO from '../components/SEO'
 import CTASection from '../components/sections/CTASection'
 import TestimonialsSection from '../components/sections/TestimonialsSection'
 
@@ -19,7 +19,7 @@ export default function AboutPage() {
     },
     {
       title: "Kemitraan Jangka Panjang",
-      description: "Kami tidak bekerja hit-and-run. Kami menjadi mitra teknologi yang membantu Anda beradaptasi, tumbuh, dan memelihara aset digital Anda."
+      description: "Kami tidak sekadar menyerahkan website lalu menghilang. Kami memantau performa, memberikan masukan, dan bertindak sebagai partner digital Anda."
     }
   ];
 
@@ -39,10 +39,11 @@ export default function AboutPage() {
 
   return (
     <main className="bg-[var(--color-ink)] min-h-screen">
-      <Helmet>
-        <title>Tentang Kami · origindevv</title>
-        <meta name="description" content="origindevv adalah studio pengembangan web yang percaya pada kualitas, performa tinggi, dan desain kustom. Kenali filosofi dan cara kerja kami." />
-      </Helmet>
+      <SEO 
+        title="Tentang Kami" 
+        description="origindevv adalah studio pengembangan web yang percaya pada kualitas, performa tinggi, dan desain kustom. Kenali filosofi dan cara kerja kami." 
+        url="https://portofolio-busines.netlify.app/tentang-kami"
+      />
 
       {/* Hero Section */}
       <section className="pt-40 pb-20 px-6">

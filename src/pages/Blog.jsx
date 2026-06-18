@@ -1,13 +1,14 @@
-import { Helmet } from 'react-helmet-async'
+import SEO from '../components/SEO'
 import { Link } from 'react-router-dom'
 
 export default function Blog() {
   return (
     <main className="pt-32 pb-24 bg-[var(--color-ink)] min-h-screen flex items-center justify-center text-[var(--color-paper)]">
-      <Helmet>
-        <title>Sinyal Digital (Blog) · origindevv</title>
-        <meta name="description" content="Jurnal dan wawasan teknis origindevv seputar arsitektur web dan rekayasa konversi." />
-      </Helmet>
+      <SEO 
+        title="Sinyal Digital (Blog)" 
+        description="Jurnal dan wawasan teknis origindevv seputar arsitektur web dan rekayasa konversi." 
+        url="https://portofolio-busines.netlify.app/blog"
+      />
 
       <div className="container mx-auto px-6 text-center max-w-3xl">
         <h2 className="font-mono text-[var(--color-signal)] text-sm tracking-[0.12em] uppercase mb-8">

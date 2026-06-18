@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async'
+import SEO from '../components/SEO'
 import { Link } from 'react-router-dom'
 import { services } from '../data/services'
 import ProjectEstimator from '../components/calculator/ProjectEstimator'
@@ -6,10 +6,11 @@ import ProjectEstimator from '../components/calculator/ProjectEstimator'
 export default function PricingGuide() {
   return (
     <main className="pt-32 pb-24 bg-[var(--color-ink)] min-h-screen text-[var(--color-paper)]">
-      <Helmet>
-        <title>Panduan Harga & Investasi · origindevv</title>
-        <meta name="description" content="Ketahui alasan mengapa investasi pada kualitas website origindevv memberikan ROI yang nyata bagi bisnis Anda." />
-      </Helmet>
+      <SEO 
+        title="Panduan Harga & Investasi" 
+        description="Ketahui alasan mengapa investasi pada kualitas website origindevv memberikan ROI yang nyata bagi bisnis Anda." 
+        url="https://portofolio-busines.netlify.app/panduan-harga"
+      />
 
       <div className="container mx-auto px-6 max-w-4xl">
         <h1 className="font-display text-5xl md:text-7xl uppercase mb-8">Investasi Digital Anda.</h1>

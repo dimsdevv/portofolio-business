@@ -9,17 +9,16 @@ import AboutSection from '../components/sections/AboutSection'
 import TestimonialsSection from '../components/sections/TestimonialsSection'
 import FAQSection from '../components/sections/FAQSection'
 import CTASection from '../components/sections/CTASection'
-import { Helmet } from 'react-helmet-async'
+import SEO from '../components/SEO'
 
 export default function Home() {
   return (
     <main>
-      <Helmet>
-        <title>origindevv · Website yang menghasilkan profit.</title>
-        <meta name="description" content="origindevv merancang pengalaman digital untuk brand yang menolak tampil biasa saja. Cepat, tangguh, dan didesain untuk menghasilkan penjualan." />
-        <meta property="og:title" content="origindevv · Website yang menghasilkan profit." />
-        <meta property="og:description" content="Cepat, tangguh, dan didesain untuk menghasilkan penjualan." />
-      </Helmet>
+      <SEO 
+        title="Website yang menghasilkan profit" 
+        description="origindevv merancang pengalaman digital untuk brand yang menolak tampil biasa saja. Cepat, tangguh, dan didesain untuk menghasilkan penjualan." 
+        url="https://portofolio-busines.netlify.app"
+      />
       <HeroSection />
       <MarqueeSection />
       <WorkSection />

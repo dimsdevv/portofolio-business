@@ -1,13 +1,14 @@
-import { Helmet } from 'react-helmet-async'
+import SEO from '../components/SEO'
 import { Link } from 'react-router-dom'
 
 export default function StudiKasus() {
   return (
     <main className="pt-32 pb-24 bg-[var(--color-ink)] min-h-screen text-[var(--color-paper)]">
-      <Helmet>
-        <title>Studi Kasus & Filosofi · origindevv</title>
-        <meta name="description" content="Melihat bagaimana origindevv mengubah masalah bisnis kompleks menjadi antarmuka digital yang menghasilkan profit." />
-      </Helmet>
+      <SEO 
+        title="Studi Kasus & Filosofi" 
+        description="Melihat bagaimana origindevv mengubah masalah bisnis kompleks menjadi antarmuka digital yang menghasilkan profit." 
+        url="https://portofolio-busines.netlify.app/studi-kasus"
+      />
 
       <div className="container mx-auto px-6 max-w-4xl">
         <h1 className="font-display text-5xl md:text-7xl uppercase mb-8 leading-tight">Bukan Sekadar Estetika. Ini Rekayasa Konversi.</h1>

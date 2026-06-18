@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Helmet } from 'react-helmet-async'
+import SEO from '../components/SEO'
 import ServicesSection from '../components/sections/ServicesSection'
 import ProcessSection from '../components/sections/ProcessSection'
 import CTASection from '../components/sections/CTASection'
@@ -46,10 +46,11 @@ export default function ServicesPage() {
 
   return (
     <main className="bg-[var(--color-ink)] min-h-screen">
-      <Helmet>
-        <title>Layanan Pembuatan Website · origindevv</title>
-        <meta name="description" content="Layanan jasa pembuatan website profesional, mulai dari Company Profile, E-Commerce, hingga Landing Page berkinerja tinggi." />
-      </Helmet>
+      <SEO 
+        title="Layanan Pembuatan Website" 
+        description="Layanan jasa pembuatan website profesional, mulai dari Company Profile, E-Commerce, hingga Landing Page berkinerja tinggi." 
+        url="https://portofolio-busines.netlify.app/layanan"
+      />
 
       {/* Hero Section */}
       <section className="pt-40 pb-20 px-6 border-b border-[var(--color-border-ink)]">
