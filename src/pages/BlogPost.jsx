@@ -57,9 +57,9 @@ export default function BlogPost() {
   return (
     <main className="pt-32 pb-24 bg-[var(--color-ink)] min-h-screen text-[var(--color-paper)]">
       <SEO 
-        title={\`\${post.title} | Origindevv Jurnal\`}
+        title={`${post.title} | Origindevv Jurnal`}
         description={post.excerpt}
-        url={\`https://portofolio-busines.netlify.app/blog/\${post.slug}\`}
+        url={`https://portofolio-busines.netlify.app/blog/${post.slug}`}
       />
 
       <article className="container mx-auto px-6 max-w-4xl">
