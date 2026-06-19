@@ -13,6 +13,7 @@ const Admin = lazy(() => import('./pages/Admin'))
 const PricingGuide = lazy(() => import('./pages/PricingGuide'))
 const StudiKasus = lazy(() => import('./pages/StudiKasus'))
 const Blog = lazy(() => import('./pages/Blog'))
+const BlogPost = lazy(() => import('./pages/BlogPost'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const WhyUs = lazy(() => import('./pages/WhyUs'))
 const ServicesPage = lazy(() => import('./pages/ServicesPage'))
@@ -76,6 +77,7 @@ function App() {
               <Route path="/panduan-harga" element={<PricingGuide />} />
               <Route path="/studi-kasus" element={<StudiKasus />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/kebijakan-privasi" element={<PrivacyPolicy />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
