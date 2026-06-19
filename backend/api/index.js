@@ -100,6 +100,19 @@ app.post('/api/inquiries', async (req, res) => {
   }
 });
 
+// Get all services
+app.get('/api/services', async (req, res) => {
+  try {
+    const services = await prisma.service.findMany({
+      orderBy: { order: 'asc' }
+    });
+    res.json(services);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch services' });
+  }
+});
+
 // --- ADMIN ROUTES --- //
 
 // Verify Auth
@@ -203,6 +216,81 @@ app.delete('/api/inquiries/:id', requireAuth, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to delete inquiry' });
+  }
+});
+
+// --- SERVICES --- //
+// Create service
+app.post('/api/services', requireAuth, async (req, res) => {
+  try {
+    // Convert order to integer
+    const data = { ...req.body };
+    if (data.order !== undefined) {
+      data.order = parseInt(data.order, 10) || 0;
+    }
+    const service = await prisma.service.create({
+      data
+    });
+    res.json(service);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create service' });
+  }
+});
+
+// Update service
+app.put('/api/services/:id', requireAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = { ...req.body };
+    if (data.order !== undefined) {
+      data.order = parseInt(data.order, 10) || 0;
+    }
+    const service = await prisma.service.update({
+      where: { id },
+      data
+    });
+    res.json(service);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to update service' });
+  }
+});
+
+// Delete service
+app.delete('/api/services/:id', requireAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await prisma.service.delete({
+      where: { id }
+    });
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete service' });
+  }
+});
+
+// --- ANALYTICS --- //
+// Get analytics overview
+app.get('/api/analytics', requireAuth, async (req, res) => {
+  try {
+    const totalProjects = await prisma.project.count();
+    const totalInquiries = await prisma.inquiry.count();
+    const newInquiries = await prisma.inquiry.count({
+      where: { status: 'Baru' }
+    });
+    const totalServices = await prisma.service.count();
+
+    res.json({
+      totalProjects,
+      totalInquiries,
+      newInquiries,
+      totalServices
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch analytics' });
   }
 });
 

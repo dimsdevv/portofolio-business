@@ -1,7 +1,23 @@
+import { useState, useEffect } from 'react'
 import Accordion from '../ui/Accordion'
-import { services } from '../../data/services'
 
 export default function ServicesSection() {
+  const [services, setServices] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/services`)
+      .then(res => res.json())
+      .then(data => {
+        setServices(data)
+        setIsLoading(false)
+      })
+      .catch(err => {
+        console.error('Error fetching services:', err)
+        setIsLoading(false)
+      })
+  }, [])
+
   return (
     <section id="services" className="py-32 bg-[var(--color-paper-warm)]">
       <div className="container mx-auto px-6">
@@ -29,15 +45,21 @@ export default function ServicesSection() {
           {/* Right Column - Accordion List */}
           <div className="lg:col-span-7">
             <div className="border-b border-[var(--color-border-paper)]">
-              {services.map((service) => (
-                <Accordion 
-                  key={service.id}
-                  number={service.id}
-                  title={service.name}
-                  description={service.description}
-                  price={service.price}
-                />
-              ))}
+              {isLoading ? (
+                <div className="py-8 font-mono text-[var(--color-fog)] text-sm uppercase">Memuat layanan...</div>
+              ) : services.length > 0 ? (
+                services.map((service, index) => (
+                  <Accordion 
+                    key={service.id}
+                    number={String(index + 1).padStart(2, '0')}
+                    title={service.name}
+                    description={service.description}
+                    price={service.price}
+                  />
+                ))
+              ) : (
+                <div className="py-8 font-mono text-[var(--color-fog)] text-sm uppercase">Tidak ada layanan yang tersedia.</div>
+              )}
             </div>
           </div>
 

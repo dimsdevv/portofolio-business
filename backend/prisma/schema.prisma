@@ -41,3 +41,14 @@ model Inquiry {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Service {
+  id          String   @id @default(cuid())
+  order       Int      @default(0)
+  name        String
+  description String
+  price       String
+  guarantee   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

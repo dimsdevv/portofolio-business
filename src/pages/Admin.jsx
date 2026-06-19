@@ -11,10 +11,12 @@ export default function Admin() {
   // Data States
   const [projects, setProjects] = useState([])
   const [inquiries, setInquiries] = useState([])
+  const [services, setServices] = useState([])
+  const [analytics, setAnalytics] = useState(null)
   
   // View States
-  const [activeTab, setActiveTab] = useState('projects') // 'projects' | 'inquiries'
-  const [view, setView] = useState('list') // 'list' | 'form' (hanya untuk projects)
+  const [activeTab, setActiveTab] = useState('overview') // 'overview' | 'projects' | 'inquiries' | 'services'
+  const [view, setView] = useState('list') // 'list' | 'form'
   const [editingId, setEditingId] = useState(null)
   
   // Form State
@@ -24,11 +26,14 @@ export default function Admin() {
     content: '', challenge: '', approach: '', impact: '', gallery: '', hoverVideo: '',
     isFeatured: false
   })
+  const [serviceFormData, setServiceFormData] = useState({
+    name: '', description: '', price: '', guarantee: '', order: ''
+  })
   
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' })
-  const [deleteConfirm, setDeleteConfirm] = useState({ show: false, id: null, name: '' })
+  const [deleteConfirm, setDeleteConfirm] = useState({ show: false, id: null, name: '', type: 'project' })
 
   const showToast = (message, type = 'success') => {
     setToast({ show: true, message, type })
@@ -42,6 +47,8 @@ export default function Admin() {
     if (token) {
       fetchProjects()
       fetchInquiries()
+      fetchServices()
+      fetchAnalytics()
     }
   }, [token])
 
@@ -62,6 +69,28 @@ export default function Admin() {
       })
       const data = await res.json()
       setInquiries(data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const fetchServices = async () => {
+    try {
+      const res = await fetch(`${API_URL}/services`)
+      const data = await res.json()
+      setServices(data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const fetchAnalytics = async () => {
+    try {
+      const res = await fetch(`${API_URL}/analytics`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      const data = await res.json()
+      setAnalytics(data)
     } catch (err) {
       console.error(err)
     }
@@ -157,25 +186,34 @@ export default function Admin() {
     if (!deleteConfirm.id) return
     setIsLoading(true)
     try {
-      await fetch(`${API_URL}/projects/${deleteConfirm.id}`, {
-        method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
-      })
-      showToast('Proyek berhasil dihapus', 'success')
-      setDeleteConfirm({ show: false, id: null, name: '' })
-      fetchProjects()
+      if (deleteConfirm.type === 'project') {
+        await fetch(`${API_URL}/projects/${deleteConfirm.id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        showToast('Proyek berhasil dihapus', 'success')
+        fetchProjects()
+      } else if (deleteConfirm.type === 'service') {
+        await fetch(`${API_URL}/services/${deleteConfirm.id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        showToast('Layanan berhasil dihapus', 'success')
+        fetchServices()
+      }
+      setDeleteConfirm({ show: false, id: null, name: '', type: 'project' })
     } catch (err) {
-      showToast('Gagal menghapus proyek', 'error')
+      showToast('Gagal menghapus', 'error')
     }
     setIsLoading(false)
   }
 
-  const promptDelete = (id, name) => {
-    setDeleteConfirm({ show: true, id, name })
+  const promptDelete = (id, name, type = 'project') => {
+    setDeleteConfirm({ show: true, id, name, type })
   }
 
   const cancelDelete = () => {
-    setDeleteConfirm({ show: false, id: null, name: '' })
+    setDeleteConfirm({ show: false, id: null, name: '', type: 'project' })
   }
 
   const openForm = (project = null) => {
@@ -192,6 +230,49 @@ export default function Admin() {
       })
     }
     setView('form')
+  }
+
+  const openServiceForm = (service = null) => {
+    if (service) {
+      setEditingId(service.id)
+      setServiceFormData(service)
+    } else {
+      setEditingId(null)
+      setServiceFormData({
+        name: '', description: '', price: '', guarantee: '', order: ''
+      })
+    }
+    setView('form')
+  }
+
+  const handleSaveService = async (e) => {
+    e.preventDefault()
+    setIsLoading(true)
+    try {
+      const url = editingId ? `${API_URL}/services/${editingId}` : `${API_URL}/services`
+      const method = editingId ? 'PUT' : 'POST'
+      
+      const res = await fetch(url, {
+        method,
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(serviceFormData)
+      })
+      
+      if (res.ok) {
+        showToast('Layanan berhasil disimpan!', 'success')
+        setView('list')
+        fetchServices()
+        fetchAnalytics()
+      } else {
+        showToast('Gagal menyimpan layanan', 'error')
+      }
+    } catch (err) {
+      showToast('Terjadi kesalahan jaringan', 'error')
+    }
+    setIsLoading(false)
   }
 
   // Inquiry Handlers
@@ -302,9 +383,9 @@ export default function Admin() {
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="relative bg-[var(--color-ink)] border border-red-500/50 p-8 w-full max-w-md shadow-2xl z-10"
             >
-              <h3 className="font-display text-3xl uppercase text-red-500 mb-2">Hapus Proyek?</h3>
+              <h3 className="font-display text-3xl uppercase text-red-500 mb-2">Hapus Data?</h3>
               <p className="font-sans text-[var(--color-fog)] mb-8">
-                Apakah Anda yakin ingin menghapus proyek <span className="text-[var(--color-paper)] font-mono">[{deleteConfirm.name}]</span> secara permanen? Tindakan ini tidak dapat dibatalkan.
+                Apakah Anda yakin ingin menghapus <span className="text-[var(--color-paper)] font-mono">[{deleteConfirm.name}]</span> secara permanen? Tindakan ini tidak dapat dibatalkan.
               </p>
               <div className="flex gap-4 font-mono text-sm uppercase">
                 <button 
@@ -334,10 +415,22 @@ export default function Admin() {
         </div>
         <nav className="flex-1 p-6 flex flex-col gap-2 font-mono text-sm uppercase">
           <button 
+            onClick={() => { setActiveTab('overview'); setView('list'); }} 
+            className={`text-left px-4 py-3 transition-colors ${activeTab === 'overview' ? 'bg-[var(--color-paper-off)] text-[var(--color-ink)]' : 'text-[var(--color-fog)] hover:text-[var(--color-signal)]'}`}
+          >
+            Dasbor Analitik
+          </button>
+          <button 
             onClick={() => { setActiveTab('projects'); setView('list'); }} 
             className={`text-left px-4 py-3 transition-colors ${activeTab === 'projects' ? 'bg-[var(--color-paper-off)] text-[var(--color-ink)]' : 'text-[var(--color-fog)] hover:text-[var(--color-signal)]'}`}
           >
             Daftar Proyek
+          </button>
+          <button 
+            onClick={() => { setActiveTab('services'); setView('list'); }} 
+            className={`text-left px-4 py-3 transition-colors ${activeTab === 'services' ? 'bg-[var(--color-paper-off)] text-[var(--color-ink)]' : 'text-[var(--color-fog)] hover:text-[var(--color-signal)]'}`}
+          >
+            Manajemen Harga
           </button>
           <button 
             onClick={() => setActiveTab('inquiries')} 
@@ -365,8 +458,10 @@ export default function Admin() {
           <div>
             <h1 className="font-display text-xl uppercase tracking-tight">Admin</h1>
           </div>
-          <div className="flex gap-4 font-mono text-xs uppercase">
+          <div className="flex gap-4 font-mono text-xs uppercase overflow-x-auto whitespace-nowrap">
+            <button onClick={() => { setActiveTab('overview'); setView('list'); }} className={activeTab === 'overview' ? 'text-[var(--color-signal)]' : 'text-[var(--color-fog)]'}>Dasbor</button>
             <button onClick={() => { setActiveTab('projects'); setView('list'); }} className={activeTab === 'projects' ? 'text-[var(--color-signal)]' : 'text-[var(--color-fog)]'}>Proyek</button>
+            <button onClick={() => { setActiveTab('services'); setView('list'); }} className={activeTab === 'services' ? 'text-[var(--color-signal)]' : 'text-[var(--color-fog)]'}>Harga</button>
             <button onClick={() => setActiveTab('inquiries')} className={activeTab === 'inquiries' ? 'text-[var(--color-signal)]' : 'text-[var(--color-fog)]'}>
               Pesan {inquiries.filter(i=>i.status==='Baru').length > 0 && `(${inquiries.filter(i=>i.status==='Baru').length})`}
             </button>
@@ -375,6 +470,117 @@ export default function Admin() {
         </div>
 
         <div className="p-6 lg:p-12">
+          {activeTab === 'overview' && (
+            <div>
+              <header className="mb-12">
+                <h1 className="font-display text-5xl md:text-6xl uppercase tracking-tight">Dasbor Analitik</h1>
+                <p className="font-mono text-[var(--color-signal)] text-sm tracking-widest mt-2">RINGKASAN SISTEM</p>
+              </header>
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                <div className="border border-[var(--color-border-ink)] p-6 bg-[var(--color-ink)]">
+                  <h3 className="font-mono text-sm text-[var(--color-fog)] uppercase tracking-wider mb-4">Total Proyek</h3>
+                  <p className="font-display text-5xl">{analytics?.totalProjects || 0}</p>
+                </div>
+                <div className="border border-[var(--color-border-ink)] p-6 bg-[var(--color-ink)]">
+                  <h3 className="font-mono text-sm text-[var(--color-fog)] uppercase tracking-wider mb-4">Total Layanan</h3>
+                  <p className="font-display text-5xl">{analytics?.totalServices || 0}</p>
+                </div>
+                <div className="border border-[var(--color-border-ink)] p-6 bg-[var(--color-ink)]">
+                  <h3 className="font-mono text-sm text-[var(--color-fog)] uppercase tracking-wider mb-4">Total Pesan</h3>
+                  <p className="font-display text-5xl">{analytics?.totalInquiries || 0}</p>
+                </div>
+                <div className="border border-[var(--color-signal)] p-6 bg-[var(--color-ink)]">
+                  <h3 className="font-mono text-sm text-[var(--color-signal)] uppercase tracking-wider mb-4">Pesan Baru</h3>
+                  <p className="font-display text-5xl text-[var(--color-signal)]">{analytics?.newInquiries || 0}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'services' && (
+            <div>
+              <header className="mb-12">
+                <h1 className="font-display text-5xl md:text-6xl uppercase tracking-tight">Manajemen Harga</h1>
+                <p className="font-mono text-[var(--color-signal)] text-sm tracking-widest mt-2">DAFTAR LAYANAN & HARGA</p>
+              </header>
+
+              {view === 'list' ? (
+                <div>
+                  <div className="flex justify-between items-center mb-8">
+                    <h2 className="font-mono text-lg uppercase tracking-wider">Daftar Layanan</h2>
+                    <button 
+                      onClick={() => openServiceForm()}
+                      className="bg-[var(--color-signal)] text-[var(--color-ink)] px-6 py-2 font-semibold hover:opacity-80 transition-opacity font-mono text-sm"
+                    >
+                      + TAMBAH LAYANAN
+                    </button>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    {services.map(s => (
+                      <div key={s.id} className="border border-[var(--color-border-ink)] p-6 group hover:bg-[var(--color-paper-off)] hover:text-[var(--color-ink)] transition-colors">
+                        <div className="flex justify-between items-start mb-4">
+                          <span className="font-mono text-[var(--color-signal)] text-xs">Urutan: {s.order}</span>
+                          <div className="flex gap-4 font-mono text-xs uppercase">
+                            <button onClick={() => openServiceForm(s)} className="text-[var(--color-fog)] group-hover:text-[var(--color-ink)] hover:underline">Edit</button>
+                            <button onClick={() => promptDelete(s.id, s.name, 'service')} className="text-red-500 hover:underline">Hapus</button>
+                          </div>
+                        </div>
+                        <h3 className="font-display text-3xl uppercase">{s.name}</h3>
+                        <p className="font-mono text-[var(--color-fog)] group-hover:text-[var(--color-ink-subtle)] text-sm mt-2">{s.price}</p>
+                        <p className="font-sans text-[var(--color-fog)] group-hover:text-[var(--color-ink-subtle)] mt-4 line-clamp-2">{s.description}</p>
+                      </div>
+                    ))}
+                    {services.length === 0 && (
+                      <div className="col-span-full border border-[var(--color-border-ink)] p-12 text-center text-[var(--color-fog)] font-mono text-sm uppercase">
+                        Belum ada layanan
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="max-w-4xl">
+                  <button onClick={() => setView('list')} className="font-mono text-[var(--color-fog)] text-sm hover:text-[var(--color-signal)] transition-colors mb-8 uppercase tracking-wider">
+                    ← Kembali ke Daftar
+                  </button>
+                  
+                  <form onSubmit={handleSaveService} className="space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div>
+                        <label className="block font-mono text-xs uppercase text-[var(--color-fog)] mb-2">Nama Layanan</label>
+                        <input type="text" required value={serviceFormData.name} onChange={e=>setServiceFormData({...serviceFormData, name: e.target.value})} className="w-full bg-transparent border border-[var(--color-border-ink)] p-3 text-[var(--color-paper)] focus:border-[var(--color-signal)] outline-none" />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs uppercase text-[var(--color-fog)] mb-2">Harga (e.g. Mulai Rp X Juta)</label>
+                        <input type="text" required value={serviceFormData.price} onChange={e=>setServiceFormData({...serviceFormData, price: e.target.value})} className="w-full bg-transparent border border-[var(--color-border-ink)] p-3 text-[var(--color-paper)] focus:border-[var(--color-signal)] outline-none" />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs uppercase text-[var(--color-fog)] mb-2">Jaminan / Info Ekstra</label>
+                        <input type="text" value={serviceFormData.guarantee} onChange={e=>setServiceFormData({...serviceFormData, guarantee: e.target.value})} className="w-full bg-transparent border border-[var(--color-border-ink)] p-3 text-[var(--color-paper)] focus:border-[var(--color-signal)] outline-none" />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs uppercase text-[var(--color-fog)] mb-2">Urutan Tampil (Angka)</label>
+                        <input type="number" required value={serviceFormData.order} onChange={e=>setServiceFormData({...serviceFormData, order: e.target.value})} className="w-full bg-transparent border border-[var(--color-border-ink)] p-3 text-[var(--color-paper)] focus:border-[var(--color-signal)] outline-none" />
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block font-mono text-xs uppercase text-[var(--color-fog)] mb-2">Deskripsi Layanan</label>
+                        <textarea required rows="4" value={serviceFormData.description} onChange={e=>setServiceFormData({...serviceFormData, description: e.target.value})} className="w-full bg-transparent border border-[var(--color-border-ink)] p-3 text-[var(--color-paper)] focus:border-[var(--color-signal)] outline-none"></textarea>
+                      </div>
+                    </div>
+
+                    <button 
+                      type="submit" 
+                      disabled={isLoading}
+                      className="w-full bg-[var(--color-signal)] text-[var(--color-ink)] py-4 font-semibold hover:opacity-80 transition-opacity font-mono tracking-wider uppercase text-sm"
+                    >
+                      {isLoading ? 'MENYIMPAN...' : 'SIMPAN LAYANAN'}
+                    </button>
+                  </form>
+                </div>
+              )}
+            </div>
+          )}
+
           {activeTab === 'projects' && (
             <div>
               <header className="mb-12">

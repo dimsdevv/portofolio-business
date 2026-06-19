@@ -1,9 +1,25 @@
 import SEO from '../components/SEO'
 import { Link } from 'react-router-dom'
-import { services } from '../data/services'
+import { useState, useEffect } from 'react'
 import ProjectEstimator from '../components/calculator/ProjectEstimator'
 
 export default function PricingGuide() {
+  const [services, setServices] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/services`)
+      .then(res => res.json())
+      .then(data => {
+        setServices(data)
+        setIsLoading(false)
+      })
+      .catch(err => {
+        console.error('Error fetching services:', err)
+        setIsLoading(false)
+      })
+  }, [])
+
   return (
     <main className="pt-32 pb-24 bg-[var(--color-ink)] min-h-screen text-[var(--color-paper)]">
       <SEO 
@@ -19,32 +35,40 @@ export default function PricingGuide() {
         </p>
 
         <div className="space-y-8">
-          {services.map((svc) => (
-            <div key={svc.id} className="border border-[var(--color-border-ink)] p-8 md:p-10 hover:bg-[var(--color-paper-off)] hover:text-[var(--color-ink)] transition-colors group">
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
-                <div>
-                  <span className="font-mono text-[var(--color-signal)] text-sm mb-2 block">/ {svc.id}</span>
-                  <h2 className="font-display text-3xl uppercase">{svc.name}</h2>
+          {isLoading ? (
+            <div className="text-[var(--color-fog)] font-mono text-sm uppercase">Memuat layanan...</div>
+          ) : services.length > 0 ? (
+            services.map((svc, index) => (
+              <div key={svc.id} className="border border-[var(--color-border-ink)] p-8 md:p-10 hover:bg-[var(--color-paper-off)] hover:text-[var(--color-ink)] transition-colors group">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
+                  <div>
+                    <span className="font-mono text-[var(--color-signal)] text-sm mb-2 block">/ {String(index + 1).padStart(2, '0')}</span>
+                    <h2 className="font-display text-3xl uppercase">{svc.name}</h2>
+                  </div>
+                  <div className="bg-[var(--color-signal)] text-[var(--color-ink)] px-6 py-3 font-mono font-bold tracking-tight">
+                    {svc.price}
+                  </div>
                 </div>
-                <div className="bg-[var(--color-signal)] text-[var(--color-ink)] px-6 py-3 font-mono font-bold tracking-tight">
-                  {svc.price}
-                </div>
+                <p className="font-sans text-lg group-hover:text-[var(--color-ink-subtle)] text-[var(--color-fog)] transition-colors leading-relaxed mb-6">
+                  {svc.description}
+                </p>
+                
+                {/* Guarantee Badge */}
+                {svc.guarantee && (
+                  <div className="inline-flex items-center gap-3 border border-[var(--color-border-ink)] group-hover:border-[var(--color-signal)] px-4 py-2 transition-all duration-300">
+                    <svg className="w-5 h-5 text-[var(--color-fog)] group-hover:text-[var(--color-signal)] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <span className="font-sans text-sm text-[var(--color-fog)] group-hover:text-[var(--color-ink-subtle)] transition-colors duration-300">
+                      {svc.guarantee}
+                    </span>
+                  </div>
+                )}
               </div>
-              <p className="font-sans text-lg group-hover:text-[var(--color-ink-subtle)] text-[var(--color-fog)] transition-colors leading-relaxed mb-6">
-                {svc.description}
-              </p>
-              
-              {/* Guarantee Badge */}
-              <div className="inline-flex items-center gap-3 border border-[var(--color-border-ink)] group-hover:border-[var(--color-signal)] px-4 py-2 transition-all duration-300">
-                <svg className="w-5 h-5 text-[var(--color-fog)] group-hover:text-[var(--color-signal)] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                </svg>
-                <span className="font-sans text-sm text-[var(--color-fog)] group-hover:text-[var(--color-ink-subtle)] transition-colors duration-300">
-                  {svc.guarantee}
-                </span>
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div className="text-[var(--color-fog)] font-mono text-sm uppercase">Tidak ada layanan yang tersedia.</div>
+          )}
         </div>
 
         <div className="mt-24">

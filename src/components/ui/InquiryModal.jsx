@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function InquiryModal({ isOpen, onClose }) {
@@ -9,8 +9,18 @@ export default function InquiryModal({ isOpen, onClose }) {
     budget: '',
     message: ''
   });
+  const [services, setServices] = useState([]);
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (isOpen && services.length === 0) {
+      fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/services`)
+        .then(res => res.json())
+        .then(data => setServices(data))
+        .catch(err => console.error('Error fetching services:', err));
+    }
+  }, [isOpen, services.length]);
 
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -123,9 +133,17 @@ export default function InquiryModal({ isOpen, onClose }) {
                             className="w-full bg-transparent border-b border-[var(--color-ink)]/30 focus:border-[var(--color-ink)] outline-none py-2 px-0 transition-colors rounded-none cursor-pointer appearance-none"
                           >
                             <option value="" disabled>Pilih Layanan</option>
-                            <option value="Web Development">Web Development</option>
-                            <option value="UI/UX Design">UI/UX Design</option>
-                            <option value="E-Commerce">E-Commerce</option>
+                            {services.length > 0 ? (
+                              services.map(svc => (
+                                <option key={svc.id} value={svc.name}>{svc.name}</option>
+                              ))
+                            ) : (
+                              <>
+                                <option value="Web Development">Web Development</option>
+                                <option value="UI/UX Design">UI/UX Design</option>
+                                <option value="E-Commerce">E-Commerce</option>
+                              </>
+                            )}
                             <option value="Lainnya">Lainnya</option>
                           </select>
                           <div className="absolute right-0 top-[28px] pointer-events-none opacity-50 text-xs">▼</div>
