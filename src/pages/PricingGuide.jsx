@@ -30,15 +30,51 @@ export default function PricingGuide() {
                   {svc.price}
                 </div>
               </div>
-              <p className="font-sans text-lg group-hover:text-[var(--color-ink-subtle)] text-[var(--color-fog)] transition-colors leading-relaxed">
+              <p className="font-sans text-lg group-hover:text-[var(--color-ink-subtle)] text-[var(--color-fog)] transition-colors leading-relaxed mb-6">
                 {svc.description}
               </p>
+              
+              {/* Guarantee Badge */}
+              <div className="inline-flex items-center gap-3 border border-[var(--color-border-ink)] group-hover:border-[var(--color-signal)] px-4 py-2 transition-all duration-300">
+                <svg className="w-5 h-5 text-[var(--color-fog)] group-hover:text-[var(--color-signal)] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                <span className="font-sans text-sm text-[var(--color-fog)] group-hover:text-[var(--color-ink-subtle)] transition-colors duration-300">
+                  {svc.guarantee}
+                </span>
+              </div>
             </div>
           ))}
         </div>
 
         <div className="mt-24">
           <ProjectEstimator />
+        </div>
+
+        {/* Origindevv Standard Section */}
+        <div className="mt-24 border border-[var(--color-border-ink)] p-8 md:p-12 relative overflow-hidden group">
+          {/* Subtle background glow on hover */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-signal)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          <h3 className="font-display text-3xl md:text-4xl uppercase mb-8 relative z-10">Origindevv Standard.</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+            <div>
+              <div className="text-[var(--color-signal)] font-mono text-xl mb-3">01</div>
+              <h4 className="font-sans font-bold text-lg mb-2">100% Kepemilikan Kode</h4>
+              <p className="font-sans text-[var(--color-fog)]">Tanpa vendor lock-in. Semua source code dan aset digital sepenuhnya menjadi hak milik bisnis Anda.</p>
+            </div>
+            <div>
+              <div className="text-[var(--color-signal)] font-mono text-xl mb-3">02</div>
+              <h4 className="font-sans font-bold text-lg mb-2">Desain Kustom Eksklusif</h4>
+              <p className="font-sans text-[var(--color-fog)]">Kami tidak mendaur ulang template. Setiap piksel dirancang khusus untuk merepresentasikan identitas brand Anda.</p>
+            </div>
+            <div>
+              <div className="text-[var(--color-signal)] font-mono text-xl mb-3">03</div>
+              <h4 className="font-sans font-bold text-lg mb-2">Transparansi Biaya</h4>
+              <p className="font-sans text-[var(--color-fog)]">Tidak ada biaya tersembunyi. Investasi yang Anda bayarkan sesuai dengan nilai dan fitur yang Anda dapatkan di awal.</p>
+            </div>
+          </div>
         </div>
 
         <div className="mt-24 border-t border-[var(--color-border-ink)] pt-16">
