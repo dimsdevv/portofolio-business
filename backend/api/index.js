@@ -81,6 +81,25 @@ app.get('/api/projects/:slug', async (req, res) => {
   }
 });
 
+// Create inquiry
+app.post('/api/inquiries', async (req, res) => {
+  try {
+    const inquiry = await prisma.inquiry.create({
+      data: {
+        name: req.body.name,
+        email: req.body.email,
+        service: req.body.service,
+        budget: req.body.budget,
+        message: req.body.message
+      }
+    });
+    res.json(inquiry);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create inquiry' });
+  }
+});
+
 // --- ADMIN ROUTES --- //
 
 // Verify Auth
@@ -141,6 +160,49 @@ app.delete('/api/projects/:id', requireAuth, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to delete project' });
+  }
+});
+
+// Get all inquiries
+app.get('/api/inquiries', requireAuth, async (req, res) => {
+  try {
+    const inquiries = await prisma.inquiry.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+    res.json(inquiries);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch inquiries' });
+  }
+});
+
+// Update inquiry status
+app.put('/api/inquiries/:id', requireAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const inquiry = await prisma.inquiry.update({
+      where: { id },
+      data: { status }
+    });
+    res.json(inquiry);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to update inquiry' });
+  }
+});
+
+// Delete inquiry
+app.delete('/api/inquiries/:id', requireAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await prisma.inquiry.delete({
+      where: { id }
+    });
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete inquiry' });
   }
 });
 
