@@ -6,6 +6,7 @@ import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Home from './pages/Home'
 import FloatingContact from './components/ui/FloatingContact'
+import PromoModal from './components/ui/PromoModal'
 
 // Lazy loaded pages
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
@@ -86,6 +87,7 @@ function App() {
       </AnimatePresence>
 
       <FloatingContact />
+      <PromoModal />
       <Footer />
     </>
   )

@@ -34,6 +34,27 @@ export default function PricingGuide() {
           Website murahan akan terus-menerus merugikan bisnis Anda—melalui konversi yang hilang, pengunjung yang frustrasi, dan citra merek yang hancur. Kami tidak bersaing menawarkan harga termurah, kami bersaing memberikan **Return on Investment (ROI) tertinggi**.
         </p>
 
+        {/* Promo Banner inside Pricing Guide */}
+        <div className="mb-16 border border-[var(--color-signal)] bg-[var(--color-signal)]/10 p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div>
+            <div className="flex items-center gap-3 mb-2 flex-wrap">
+              <span className="bg-[var(--color-signal)] text-[var(--color-ink)] text-xs font-bold px-2 py-1 uppercase tracking-widest">
+                Eksklusif
+              </span>
+              <h3 className="font-display text-2xl uppercase text-[var(--color-paper)]">Founding Partners Promo</h3>
+            </div>
+            <p className="font-sans text-lg text-[var(--color-fog)]">Gratis <strong className="text-[var(--color-paper)]">Maintenance 1 Tahun</strong> & <strong className="text-[var(--color-paper)]">Setup SEO</strong> untuk 5 klien pertama di semua paket layanan.</p>
+          </div>
+          <a 
+            href="https://wa.me/6289654297309?text=Halo%20origindevv,%20saya%20tertarik%20dengan%20Promo%20Founding%20Partners" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="shrink-0 bg-[var(--color-signal)] text-[var(--color-ink)] px-6 py-4 font-bold uppercase tracking-wide hover:opacity-90 transition-opacity text-sm text-center w-full md:w-auto"
+          >
+            Klaim Sekarang
+          </a>
+        </div>
+
         <div className="space-y-8">
           {isLoading ? (
             <div className="text-[var(--color-fog)] font-mono text-sm uppercase">Memuat layanan...</div>
@@ -43,7 +64,12 @@ export default function PricingGuide() {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
                   <div>
                     <span className="font-mono text-[var(--color-signal)] text-sm mb-2 block">/ {String(index + 1).padStart(2, '0')}</span>
-                    <h2 className="font-display text-3xl uppercase">{svc.name}</h2>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h2 className="font-display text-3xl uppercase">{svc.name}</h2>
+                      <span className="border border-[var(--color-signal)] text-[var(--color-signal)] text-[10px] font-bold px-2 py-1 uppercase tracking-widest whitespace-nowrap">
+                        Promo Berlaku
+                      </span>
+                    </div>
                   </div>
                   <div className="bg-[var(--color-signal)] text-[var(--color-ink)] px-6 py-3 font-mono font-bold tracking-tight">
                     {svc.price}
