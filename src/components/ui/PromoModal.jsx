@@ -58,18 +58,24 @@ export default function PromoModal() {
                 Founding Partners.
               </h2>
               <p className="font-sans text-lg text-[var(--color-ink-subtle)] leading-relaxed">
-                Jadilah salah satu dari <strong className="text-[var(--color-ink)] font-bold">5 klien pertama</strong> kami dan dapatkan benefit premium secara gratis:
+                Jadilah salah satu dari <strong className="text-[var(--color-ink)] font-bold">5 klien pertama</strong> kami dan hemat hingga <strong className="text-[var(--color-ink)] font-bold">Rp 13.500.000</strong> dengan mengambil benefit premium ini secara <strong className="text-[var(--color-ink)] font-bold">GRATIS</strong>:
               </p>
             </div>
 
-            <ul className="space-y-3 mb-8 font-sans">
+            <ul className="space-y-4 mb-8 font-sans">
               <li className="flex items-start gap-3">
                 <span className="text-[var(--color-signal)] mt-1">✦</span>
-                <span className="text-[var(--color-ink-subtle)]"><strong>1 Tahun Maintenance</strong> & Dukungan Teknis Penuh</span>
+                <div>
+                  <span className="text-[var(--color-ink)] font-bold block mb-1">1 Tahun VIP Maintenance (Senilai Rp 12.000.000)</span>
+                  <span className="text-[var(--color-ink-subtle)] text-sm leading-relaxed block">Perlindungan dari ancaman *hacker*, perbaikan *bug*, *backup* rutin, hingga bantuan teknis prioritas. Anda fokus bisnis, kami yang jaga website Anda.</span>
+                </div>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[var(--color-signal)] mt-1">✦</span>
-                <span className="text-[var(--color-ink-subtle)]"><strong>Setup SEO Basic</strong> untuk visibilitas di Google</span>
+                <div>
+                  <span className="text-[var(--color-ink)] font-bold block mb-1">Setup SEO Spesialis (Senilai Rp 1.500.000)</span>
+                  <span className="text-[var(--color-ink-subtle)] text-sm leading-relaxed block">Optimasi kecepatan, pendaftaran ke *Google Search Console*, dan optimasi *meta-tag* agar bisnis Anda lebih mudah ditemukan oleh calon klien di Google.</span>
+                </div>
               </li>
             </ul>
 
