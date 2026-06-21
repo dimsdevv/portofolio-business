@@ -44,9 +44,9 @@ export default function PricingGuide() {
               <h3 className="font-display text-2xl uppercase text-[var(--color-paper)]">Founding Partners Promo</h3>
             </div>
             <p className="font-sans text-[var(--color-fog)] mt-2 leading-relaxed">
-              Dalam rangka peluncuran origindevv, <strong className="text-[var(--color-paper)]">5 klien pertama</strong> di paket manapun akan mendapatkan: <br className="hidden md:block"/>
-              <span className="text-[var(--color-signal)] font-bold">1 Tahun VIP Maintenance + Setup SEO Spesialis</span> secara <strong className="text-[var(--color-paper)]">GRATIS</strong> (Anda menghemat total <strong className="text-[var(--color-paper)]">Rp 13.500.000</strong>). <br/>
-              *Website aman tanpa pusing, dan langsung siap bersaing di Google.*
+              Dalam rangka peluncuran origindevv, khusus untuk <strong className="text-[var(--color-paper)]">5 klien pertama</strong> di paket manapun, Anda berhak mendapatkan: <br className="hidden md:block"/>
+              <span className="text-[var(--color-signal)] font-bold">1 Tahun Bebas Biaya VIP Maintenance + Layanan Setup SEO Spesialis</span> secara <strong className="text-[var(--color-paper)]">GRATIS</strong>. <br/>
+              *Fokus saja pada bisnis Anda. Website Anda akan kami jaga agar selalu aman, cepat, dan siap bersaing di Google.*
             </p>
           </div>
           <a 
