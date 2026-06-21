@@ -49,9 +49,19 @@ export default function PricingGuide() {
                     {svc.price}
                   </div>
                 </div>
-                <p className="font-sans text-lg group-hover:text-[var(--color-ink-subtle)] text-[var(--color-fog)] transition-colors leading-relaxed mb-6">
-                  {svc.description}
-                </p>
+                <div className="font-sans text-lg group-hover:text-[var(--color-ink-subtle)] text-[var(--color-fog)] transition-colors leading-relaxed mb-6 space-y-2">
+                  {svc.description.split('\n').map((line, idx) => {
+                    if (line.trim().startsWith('-')) {
+                      return (
+                        <div key={idx} className="flex items-start gap-3 ml-2">
+                          <span className="text-[var(--color-signal)] mt-1.5 text-sm">✦</span>
+                          <span>{line.replace(/^-/, '').trim()}</span>
+                        </div>
+                      )
+                    }
+                    return <p key={idx} className={line.trim() === '' ? 'h-2' : ''}>{line}</p>
+                  })}
+                </div>
                 
                 {/* Guarantee Badge */}
                 {svc.guarantee && (
@@ -69,6 +79,33 @@ export default function PricingGuide() {
           ) : (
             <div className="text-[var(--color-fog)] font-mono text-sm uppercase">Tidak ada layanan yang tersedia.</div>
           )}
+        </div>
+
+        {/* Add-On Section */}
+        <div className="mt-16 border border-[var(--color-border-ink)] p-8 md:p-10 relative overflow-hidden group hover:bg-[var(--color-paper-off)] transition-colors">
+          <h2 className="font-display text-3xl uppercase mb-8 text-[var(--color-paper)] group-hover:text-[var(--color-ink)] transition-colors">Add-On Opsional</h2>
+          <div className="flex flex-col space-y-4 font-sans text-lg">
+            <div className="flex justify-between items-center border-b border-[var(--color-border-ink)] group-hover:border-[var(--color-border-paper)] pb-4">
+              <span className="font-bold text-[var(--color-paper)] group-hover:text-[var(--color-ink)] transition-colors">Domain & Hosting 1 Tahun</span>
+              <span className="font-mono text-[var(--color-signal)]">Mulai Rp 500.000</span>
+            </div>
+            <div className="flex justify-between items-center border-b border-[var(--color-border-ink)] group-hover:border-[var(--color-border-paper)] pb-4">
+              <span className="font-bold text-[var(--color-paper)] group-hover:text-[var(--color-ink)] transition-colors">Maintenance Bulanan</span>
+              <span className="font-mono text-[var(--color-signal)]">Mulai Rp 1.000.000</span>
+            </div>
+            <div className="flex justify-between items-center border-b border-[var(--color-border-ink)] group-hover:border-[var(--color-border-paper)] pb-4">
+              <span className="font-bold text-[var(--color-paper)] group-hover:text-[var(--color-ink)] transition-colors">Tambah Halaman</span>
+              <span className="font-mono text-[var(--color-signal)]">Rp 300.000 / Halaman</span>
+            </div>
+            <div className="flex justify-between items-center border-b border-[var(--color-border-ink)] group-hover:border-[var(--color-border-paper)] pb-4">
+              <span className="font-bold text-[var(--color-paper)] group-hover:text-[var(--color-ink)] transition-colors">Optimasi SEO Basic</span>
+              <span className="font-mono text-[var(--color-signal)]">Rp 1.500.000</span>
+            </div>
+            <div className="flex justify-between items-center border-b border-[var(--color-border-ink)] group-hover:border-[var(--color-border-paper)] pb-4">
+              <span className="font-bold text-[var(--color-paper)] group-hover:text-[var(--color-ink)] transition-colors">Revisi Tambahan</span>
+              <span className="font-mono text-[var(--color-signal)]">Mulai Rp 200.000 / Revisi</span>
+            </div>
+          </div>
         </div>
 
         <div className="mt-24">

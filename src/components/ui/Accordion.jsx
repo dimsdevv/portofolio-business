@@ -39,9 +39,19 @@ export default function Accordion({ id, number, title, description, price, theme
             className="overflow-hidden"
           >
             <div className="pt-4 pl-0 md:pl-12">
-              <p className="font-sans text-[var(--color-fog)] leading-relaxed max-w-2xl mb-3">
-                {description}
-              </p>
+              <div className="font-sans text-[var(--color-fog)] leading-relaxed max-w-2xl mb-3 space-y-2">
+                {description.split('\n').map((line, idx) => {
+                  if (line.trim().startsWith('-')) {
+                    return (
+                      <div key={idx} className="flex items-start gap-3 ml-2">
+                        <span className="text-[var(--color-signal)] mt-1.5 text-xs">✦</span>
+                        <span>{line.replace(/^-/, '').trim()}</span>
+                      </div>
+                    )
+                  }
+                  return <p key={idx} className={line.trim() === '' ? 'h-2' : ''}>{line}</p>
+                })}
+              </div>
               {price && (
                 <p className="font-mono text-[var(--color-signal-dim)] text-sm font-medium">
                   {price}
