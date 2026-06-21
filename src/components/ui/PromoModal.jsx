@@ -7,17 +7,13 @@ export default function PromoModal() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    const isDismissed = sessionStorage.getItem('promo-modal-dismissed')
-    if (!isDismissed) {
-      // Delay showing for 2.5 seconds to let the user see the hero section first
-      const timer = setTimeout(() => setIsVisible(true), 2500)
-      return () => clearTimeout(timer)
-    }
+    // Delay showing for 2.5 seconds to let the user see the hero section first
+    const timer = setTimeout(() => setIsVisible(true), 2500)
+    return () => clearTimeout(timer)
   }, [])
 
   const handleClose = () => {
     setIsVisible(false)
-    sessionStorage.setItem('promo-modal-dismissed', 'true')
   }
 
   return (
